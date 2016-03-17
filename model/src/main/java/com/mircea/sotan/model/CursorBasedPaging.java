@@ -1,7 +1,9 @@
 package com.mircea.sotan.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.sun.tools.javac.util.List;
+
+import java.util.List;
+
 
 /**
  * Created by mircea
