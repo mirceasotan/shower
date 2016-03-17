@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by mircea
  */
-public class Paging extends BasePaging {
+public class Paging<T> extends BasePaging<T> {
     @SerializedName("offset")
     private int offset;
     @SerializedName("prev")
