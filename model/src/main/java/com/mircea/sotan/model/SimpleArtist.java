@@ -2,12 +2,14 @@ package com.mircea.sotan.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 /**
  * Created by mircea
  */
 public class SimpleArtist extends GsonObject {
     @SerializedName("external_urls")
-    private External external;
+    private Map<String,String> externalUrls;
     @SerializedName("href")
     private String href;
     @SerializedName("id")
@@ -19,12 +21,12 @@ public class SimpleArtist extends GsonObject {
     @SerializedName("uri")
     private String uri;
 
-    public External getExternal() {
-        return external;
+    public Map<String, String> getExternalUrls() {
+        return externalUrls;
     }
 
-    public void setExternal(External external) {
-        this.external = external;
+    public void setExternalUrls(Map<String, String> externalUrls) {
+        this.externalUrls = externalUrls;
     }
 
     public String getHref() {

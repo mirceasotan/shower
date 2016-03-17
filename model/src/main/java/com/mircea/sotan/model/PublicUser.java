@@ -3,6 +3,7 @@ package com.mircea.sotan.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -12,7 +13,7 @@ public class PublicUser extends GsonObject {
     @SerializedName("display_name")
     private String displayName;
     @SerializedName("external_urls")
-    private External externalUrls;
+    private Map<String, String> externalUrls;
     @SerializedName("followers")
     private Followers followers;
     @SerializedName("href")
@@ -34,11 +35,11 @@ public class PublicUser extends GsonObject {
         this.displayName = displayName;
     }
 
-    public External getExternalUrls() {
+    public Map<String, String> getExternalUrls() {
         return externalUrls;
     }
 
-    public void setExternalUrls(External externalUrls) {
+    public void setExternalUrls(Map<String, String> externalUrls) {
         this.externalUrls = externalUrls;
     }
 
