@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 /**
  * Created by mircea
  */
-public class HomeActivity extends AppCompatActivity {
+public class NavigationActivity extends AppCompatActivity {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
