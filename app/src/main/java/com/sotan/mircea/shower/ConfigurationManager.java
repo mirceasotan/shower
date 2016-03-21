@@ -47,6 +47,10 @@ public class ConfigurationManager {
     public Properties getAppProperties() {
         return appProperties;
     }
+
+    public void setAppProperties(@NonNull Properties appProperties) {
+        this.appProperties = appProperties;
+    }
 }
 
 
