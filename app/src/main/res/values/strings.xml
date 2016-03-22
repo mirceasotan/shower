@@ -3,4 +3,9 @@
     <string name="drawer_menu_my_account">My Account</string>
     <string name="drawer_content_desc_closed">Drawer is opened</string>
     <string name="drawer_content_desc_open">Drawer is closed</string>
+    
+    //Drawer menu items
+    <string name="my_account">My Account</string>
+    <string name="sign_in">Sign In</string>
+    
 </resources>
