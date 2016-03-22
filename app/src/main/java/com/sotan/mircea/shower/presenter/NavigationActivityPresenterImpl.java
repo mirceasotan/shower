@@ -1,6 +1,5 @@
 package com.sotan.mircea.shower.presenter;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -22,22 +21,8 @@ public class NavigationActivityPresenterImpl extends Presenter
         this.configurationManager = configurationManager;
     }
 
-    @Override
-    public void onNavigationViewMenuItemClick(@IdRes int itemId) {
-        AuthenticationRequest request = buildAuthenticationRequest();
-        if (getView() == null) {
-            return;
-        }
-
-        if (request == null) {
-            getView().showLoginRequestError();
-        } else {
-            getView().openLoginActivity(request);
-        }
-    }
-
     @Nullable
-    private AuthenticationRequest buildAuthenticationRequest() {
+    public AuthenticationRequest buildAuthenticationRequest() {
         String clientId = configurationManager.getValueForKey(ConfigConstants.CLIENT_ID);
         String redirectUri = configurationManager.getValueForKey(ConfigConstants.REDIRECT_URI);
 
@@ -50,5 +35,26 @@ public class NavigationActivityPresenterImpl extends Presenter
         builder.setScopes(new String[]{"streaming"});
 
         return builder.build();
+    }
+
+    @Override
+    public void onHandleSignInMenuItemClick() {
+        if (getView() == null) {
+            return;
+        }
+
+        AuthenticationRequest request = buildAuthenticationRequest();
+      //  if (request == null) {
+            getView().showLoginRequestError();
+      //  } else {
+            getView().openLoginActivity(request);
+       // }
+    }
+
+    @Override
+    public void onHandleMyAccountMenuItemClick() {
+        if (getView() == null) {
+            return;
+        }
     }
 }

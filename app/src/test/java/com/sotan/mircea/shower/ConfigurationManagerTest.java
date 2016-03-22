@@ -42,9 +42,9 @@ public class ConfigurationManagerTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void test_nullContext_throwsNP() {
+    public void test_nullContext_propertiesIsNotNull() {
         ConfigurationManager configurationManager = new ConfigurationManager(null);
-        configurationManager.getAppProperties();
+        assertNotNull(configurationManager.getAppProperties());
     }
 
     @Test(expected = NullPointerException.class)

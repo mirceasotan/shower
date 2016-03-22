@@ -18,11 +18,13 @@ import javax.inject.Singleton;
 public class ConfigurationManager {
 
     @NonNull
-    private Properties appProperties;
+    private Properties appProperties = new Properties();
 
     @Inject
-    public ConfigurationManager(@NonNull Context context) {
-        appProperties = getAppConfigProperties(context);
+    public ConfigurationManager( Context context) {
+        if(context!=null) {
+            appProperties = getAppConfigProperties(context);
+        }
     }
 
     @NonNull

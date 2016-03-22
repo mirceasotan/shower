@@ -105,10 +105,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.my_account:
-                presenter.onNavigationViewMenuItemClick(item.getItemId());
+                presenter.onHandleSignInMenuItemClick();
                 break;
             case R.id.sign_in:
-                presenter.onNavigationViewMenuItemClick(item.getItemId());
+                presenter.onHandleMyAccountMenuItemClick();
                 break;
         }
 

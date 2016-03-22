@@ -1,6 +1,5 @@
 package com.sotan.mircea.shower.presenter;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -11,7 +10,8 @@ import com.spotify.sdk.android.authentication.AuthenticationRequest;
 public interface NavigationActivityPresenter {
 
     interface Callback {
-        void onNavigationViewMenuItemClick(@IdRes int itemId);
+        void onHandleSignInMenuItemClick();
+        void onHandleMyAccountMenuItemClick();
     }
 
     interface View {
