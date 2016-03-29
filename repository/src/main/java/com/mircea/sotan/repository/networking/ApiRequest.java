@@ -52,7 +52,8 @@ public class ApiRequest<T> {
         this.listener = null;
     }
 
-    public ApiRequest(@RequestMethod String method, String url, ApiParser<T> parser, ApiRequestListener<T> listener) {
+    public ApiRequest(@RequestMethod String method, String url, ApiParser<T> parser,
+                      ApiRequestListener<T> listener) {
         this.method = method;
         this.url = url;
         this.parser = parser;

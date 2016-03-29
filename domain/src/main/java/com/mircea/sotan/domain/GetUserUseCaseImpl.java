@@ -2,14 +2,14 @@ package com.mircea.sotan.domain;
 
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.repository.networking.ApiRequestListener;
-
 /**
  * Created by mircea
  */
-public class GetUserUseCaseImpl {
+public class GetUserUseCaseImpl implements GetUserUseCase{
 
-    public void getUser(@Nullable ApiRequestListener apiRequestListener){
+
+    @Override
+    public void getUser(@Nullable DataListener dataListener) {
 
     }
 }
