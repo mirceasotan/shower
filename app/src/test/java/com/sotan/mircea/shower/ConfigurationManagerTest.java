@@ -41,7 +41,7 @@ public class ConfigurationManagerTest {
         assertNotNull(configurationManager.getAppProperties());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void test_nullContext_propertiesIsNotNull() {
         ConfigurationManager configurationManager = new ConfigurationManager(null);
         assertNotNull(configurationManager.getAppProperties());

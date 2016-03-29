@@ -15,6 +15,10 @@ public class ShowerApp extends Application {
 
     private static ApplicationComponent injector;
 
+    public static ApplicationComponent getInjector() {
+        return injector;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,9 +31,5 @@ public class ShowerApp extends Application {
                 .applicationModule(new ApplicationModule())
                 .networkingModule(new NetworkingModule())
                 .build();
-    }
-
-    public static ApplicationComponent getInjector() {
-        return injector;
     }
 }

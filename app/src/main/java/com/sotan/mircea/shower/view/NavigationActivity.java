@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 case TOKEN:
                     // Handle successful response
                     Toast.makeText(this, "token", Toast.LENGTH_SHORT).show();
+                    Log.d("token", response.getAccessToken());
                     break;
 
                 // Auth flow returned an error
@@ -105,10 +107,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.my_account:
-                presenter.onHandleSignInMenuItemClick();
+                startActivity(new Intent(this, MyAccountActivity.class));
                 break;
             case R.id.sign_in:
-                presenter.onHandleMyAccountMenuItemClick();
+                presenter.onHandleSignInMenuItemClick();
                 break;
         }
 

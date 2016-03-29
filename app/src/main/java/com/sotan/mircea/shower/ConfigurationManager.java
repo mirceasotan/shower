@@ -21,8 +21,8 @@ public class ConfigurationManager {
     private Properties appProperties = new Properties();
 
     @Inject
-    public ConfigurationManager( Context context) {
-        if(context!=null) {
+    public ConfigurationManager(Context context) {
+        if (context != null) {
             appProperties = getAppConfigProperties(context);
         }
     }

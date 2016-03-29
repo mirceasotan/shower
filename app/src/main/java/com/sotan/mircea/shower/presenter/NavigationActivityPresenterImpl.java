@@ -44,11 +44,11 @@ public class NavigationActivityPresenterImpl extends Presenter
         }
 
         AuthenticationRequest request = buildAuthenticationRequest();
-      //  if (request == null) {
-            getView().showLoginRequestError();
-      //  } else {
-            getView().openLoginActivity(request);
-       // }
+        //  if (request == null) {
+        getView().showLoginRequestError();
+        //  } else {
+        getView().openLoginActivity(request);
+        // }
     }
 
     @Override

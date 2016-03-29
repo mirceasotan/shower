@@ -11,6 +11,7 @@ public interface NavigationActivityPresenter {
 
     interface Callback {
         void onHandleSignInMenuItemClick();
+
         void onHandleMyAccountMenuItemClick();
     }
 
