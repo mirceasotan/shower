@@ -77,6 +77,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     // Handle successful response
                     Toast.makeText(this, "token", Toast.LENGTH_SHORT).show();
                     Log.d("token", response.getAccessToken());
+                    Log.d("token", response.getAccessToken());
                     break;
 
                 // Auth flow returned an error

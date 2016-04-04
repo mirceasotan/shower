@@ -32,7 +32,7 @@ public class NavigationActivityPresenterImpl extends Presenter
 
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(clientId, AuthenticationResponse.Type.TOKEN, redirectUri);
-        builder.setScopes(new String[]{"streaming"});
+        builder.setScopes(new String[]{"streaming", "user-read-private", "user-read-birthdate", "user-read-email"});
 
         return builder.build();
     }
@@ -44,11 +44,12 @@ public class NavigationActivityPresenterImpl extends Presenter
         }
 
         AuthenticationRequest request = buildAuthenticationRequest();
-        //  if (request == null) {
-        getView().showLoginRequestError();
-        //  } else {
-        getView().openLoginActivity(request);
-        // }
+
+        if (request == null) {
+            getView().showLoginRequestError();
+        } else {
+            getView().openLoginActivity(request);
+        }
     }
 
     @Override

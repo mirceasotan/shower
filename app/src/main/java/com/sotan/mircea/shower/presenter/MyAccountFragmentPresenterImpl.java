@@ -11,8 +11,13 @@ import javax.inject.Inject;
  */
 public class MyAccountFragmentPresenterImpl extends Presenter
         implements MyAccountFragmentPresenter.Callback {
+
+    private GetUserUseCase userUseCase;
+
     @Inject
-    GetUserUseCase userUseCase;
+    public MyAccountFragmentPresenterImpl(GetUserUseCase getUserUseCase) {
+        this.userUseCase = getUserUseCase;
+    }
 
     @Override
     public void getUser() {
