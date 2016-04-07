@@ -1,5 +1,6 @@
 package com.mircea.sotan.domain;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.PublicUser;
@@ -7,7 +8,6 @@ import com.mircea.sotan.repository.apis.UserRestApi;
 import com.mircea.sotan.repository.networking.ApiRequestListener;
 import com.mircea.sotan.repository.networking.ApiResponse;
 import com.mircea.sotan.repository.networking.NetworkError;
-import com.sun.javafx.beans.annotations.NonNull;
 
 import javax.inject.Inject;
 
@@ -27,7 +27,7 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
 
     @Override
     public void getUser(@Nullable final DataListener<PublicUser> dataListener) {
-        userRestApi.getCurrentUser(uri, new ApiRequestListener<PublicUser>() {
+        userRestApi.getCurrentUserAsync(uri, new ApiRequestListener<PublicUser>() {
             @Override
             public void onResponse(ApiResponse<PublicUser> response) {
                 if (dataListener == null) {
@@ -43,7 +43,7 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
                     return;
                 }
 
-                dataListener.onError("");
+                dataListener.onError(error.getHttpCode() + " " + error.getCode());
             }
         });
     }

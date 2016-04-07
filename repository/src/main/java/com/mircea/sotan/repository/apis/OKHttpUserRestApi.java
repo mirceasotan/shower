@@ -11,7 +11,7 @@ import com.mircea.sotan.repository.networking.ApiRequestListener;
  */
 public class OKHttpUserRestApi implements UserRestApi {
     @Override
-    public void getCurrentUser(@NonNull String uri, @Nullable ApiRequestListener<PublicUser> listener) {
+    public void getCurrentUserAsync(@NonNull String uri, @Nullable ApiRequestListener<PublicUser> listener) {
 
     }
 }

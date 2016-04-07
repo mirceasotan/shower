@@ -11,15 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.sotan.mircea.shower.ActivityConstants;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
 import com.sotan.mircea.shower.presenter.NavigationActivityPresenterImpl;
+import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -34,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by mircea
  */
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        NavigationActivityPresenter.View {
+        NavigationActivityView {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
@@ -75,9 +74,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 // Response was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
-                    Toast.makeText(this, "token", Toast.LENGTH_SHORT).show();
-                    Log.d("token", response.getAccessToken());
-                    Log.d("token", response.getAccessToken());
+                    tokenPreferences.edit().putString("token", response.getAccessToken()).apply();
                     break;
 
                 // Auth flow returned an error

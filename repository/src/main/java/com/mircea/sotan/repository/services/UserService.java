@@ -1,4 +1,4 @@
-package com.mircea.sotan.repository.networking;
+package com.mircea.sotan.repository.services;
 
 import com.mircea.sotan.model.PublicUser;
 

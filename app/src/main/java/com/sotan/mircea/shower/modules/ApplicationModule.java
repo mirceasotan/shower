@@ -32,7 +32,7 @@ public class ApplicationModule {
 
 
     @Provides
-    public MyAccountFragmentPresenter.Callback providesMyAccountFragmentPresenter(GetUserUseCase getUserUseCase) {
+    public MyAccountFragmentPresenter providesMyAccountFragmentPresenter(GetUserUseCase getUserUseCase) {
         return new MyAccountFragmentPresenterImpl(getUserUseCase);
     }
 }

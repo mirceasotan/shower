@@ -16,7 +16,7 @@ import dagger.Provides;
 public class DomainModule {
 
     @Provides
-    GetUserUseCase providesGetUserUseCase(ConfigurationManager configurationManager, UserRestApi restApi) {
+    public GetUserUseCase providesGetUserUseCase(ConfigurationManager configurationManager, UserRestApi restApi) {
         return new GetUserUseCaseImpl(configurationManager.getValueForKey(ConfigConstants.BASE_URI) +
                 configurationManager.getValueForKey(ConfigConstants.GET_CURRENT_USER_PROFILE_PATH), restApi);
     }

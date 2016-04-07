@@ -22,12 +22,13 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
     compile 'com.spotify.sdk:spotify-auth:1.0.0-beta12@aar'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.dagger:dagger:2.0.1'
     compile 'javax.annotation:jsr250-api:1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     compile project(':domain')
     compile project(':configuration')

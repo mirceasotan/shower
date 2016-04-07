@@ -1,7 +1,7 @@
 package com.sotan.mircea.shower;
 
 import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
-import com.sotan.mircea.shower.presenter.Presenter;
+import com.sotan.mircea.shower.presenter.PresenterImpl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,21 +29,21 @@ public class PresenterTest {
 
     @Test
     public void test_bind_nonNullView_nonNullView() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         p.bind(view);
         assertNotNull(p.getView());
     }
 
     @Test
     public void test_bind_nullView_nullView() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         p.bind(null);
         assertNull(p.getView());
     }
 
     @Test
     public void test_unbind_nonNullView_nullView() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         p.bind(view);
         p.unbind();
         assertNull(p.getView());
@@ -51,21 +51,21 @@ public class PresenterTest {
 
     @Test
     public void test_unbind_nullView_nullView() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         p.unbind();
         assertNull(p.getView());
     }
 
     @Test
     public void test_isBound_nonNullView_true() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         p.bind(view);
         assertTrue(p.isBoundToView());
     }
 
     @Test
     public void test_isBound_nullView_false() {
-        Presenter p = new Presenter();
+        PresenterImpl p = new PresenterImpl();
         assertTrue(!p.isBoundToView());
     }
 }

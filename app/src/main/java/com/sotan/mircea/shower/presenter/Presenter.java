@@ -1,36 +1,14 @@
 package com.sotan.mircea.shower.presenter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.lang.ref.WeakReference;
+import com.sotan.mircea.shower.presenter.contracts.MVPView;
 
 /**
- * Created by mircea
+ * @author mircea on 4/4/16
  */
-public class Presenter {
+public interface Presenter {
+    void bind(MVPView view);
 
-    protected WeakReference<NavigationActivityPresenter.View> view;
+    void unbind();
 
-    public void bind(@NonNull NavigationActivityPresenter.View view) {
-        this.view = new WeakReference<>(view);
-    }
-
-    public void unbind() {
-        view = null;
-    }
-
-    public boolean isBoundToView() {
-        return view != null && view.get() != null;
-    }
-
-    @Nullable
-    public NavigationActivityPresenter.View getView() {
-        if (view != null) {
-            return view.get();
-        }
-
-        return null;
-    }
-
+    boolean isBound();
 }

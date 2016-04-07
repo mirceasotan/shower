@@ -5,14 +5,15 @@ import android.support.annotation.Nullable;
 
 import com.sotan.mircea.shower.ConfigConstants;
 import com.sotan.mircea.shower.ConfigurationManager;
+import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 /**
  * Created by mircea
  */
-public class NavigationActivityPresenterImpl extends Presenter
-        implements NavigationActivityPresenter.Callback {
+public class NavigationActivityPresenterImpl extends PresenterImpl
+        implements NavigationActivityPresenter {
 
     @NonNull
     ConfigurationManager configurationManager;
@@ -46,9 +47,9 @@ public class NavigationActivityPresenterImpl extends Presenter
         AuthenticationRequest request = buildAuthenticationRequest();
 
         if (request == null) {
-            getView().showLoginRequestError();
+            ((NavigationActivityView) getView()).showLoginRequestError();
         } else {
-            getView().openLoginActivity(request);
+            ((NavigationActivityView) getView()).openLoginActivity(request);
         }
     }
 
