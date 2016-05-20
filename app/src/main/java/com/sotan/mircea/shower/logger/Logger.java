@@ -1,7 +1,7 @@
 package com.sotan.mircea.shower.logger;
 
 /**
- * Created by mirceasotan on 20/05/16.
+ * Created by mirceasotan
  */
 public interface Logger {
     /**

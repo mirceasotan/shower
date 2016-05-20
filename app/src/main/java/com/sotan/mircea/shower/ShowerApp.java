@@ -17,14 +17,12 @@ import javax.inject.Named;
  * Created by mircea
  */
 public class ShowerApp extends Application {
-
     public static String TAG = "ShowerApp";
-
     private static ApplicationComponent injector;
 
     @Inject
     @Named("GTMLogger")
-    public Logger gtmLogger;
+    public Logger logger;
 
     public static ApplicationComponent getInjector() {
         return injector;
@@ -35,7 +33,7 @@ public class ShowerApp extends Application {
         super.onCreate();
         initDagger();
         getInjector().inject(this);
-        gtmLogger.init();
+        logger.init();
     }
 
     private void initDagger() {

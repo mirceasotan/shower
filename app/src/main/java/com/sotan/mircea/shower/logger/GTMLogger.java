@@ -11,7 +11,6 @@ import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
 import com.sotan.mircea.shower.BuildConfig;
-import com.sotan.mircea.shower.ContainerHolderSingleton;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 
@@ -67,7 +66,6 @@ public class GTMLogger implements Logger {
     }
 
     private void handleLoadContainerResult(@NonNull ContainerHolder containerHolder) {
-        ContainerHolderSingleton.setContainerHolder(containerHolder);
 
         if (!containerHolder.getStatus().isSuccess()) {
             Log.e(ShowerApp.TAG, "GTM failure loading container");
@@ -130,5 +128,4 @@ public class GTMLogger implements Logger {
                 EVENT_LABEL_VAR, event.getLabel(),
                 EVENT_SCREEN_NAME_VAR, event.getScreenName()));
     }
-
 }
