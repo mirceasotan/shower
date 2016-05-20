@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.sotan.mircea.shower.ActivityConstants;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.logger.GAEvent;
+import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.presenter.NavigationActivityPresenterImpl;
 import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -45,6 +47,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Inject
     @Named("token")
     SharedPreferences tokenPreferences;
+    @Inject
+    @Named("GTMLogger")
+    Logger logger;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +110,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
             case R.id.my_account:
+                logger.log(new GAEvent.GAEventBuilder().withCategory("Navigation")
+                        .withAction("Navigation menu item click")
+                        .withLabel("My Account")
+                        .withScreenName("Home").build());
                 startActivity(new Intent(this, MyAccountActivity.class));
                 break;
             case R.id.sign_in:

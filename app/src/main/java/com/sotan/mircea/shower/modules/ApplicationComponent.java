@@ -1,5 +1,7 @@
 package com.sotan.mircea.shower.modules;
 
+import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.view.MyAccountActivity;
 import com.sotan.mircea.shower.view.MyAccountFragment;
 import com.sotan.mircea.shower.view.NavigationActivity;
 
@@ -16,4 +18,8 @@ public interface ApplicationComponent {
     void inject(NavigationActivity activity);
 
     void inject(MyAccountFragment fragment);
+
+    void inject(ShowerApp showerApp);
+
+    void inject(MyAccountActivity myAccountActivity);
 }

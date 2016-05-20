@@ -7,7 +7,7 @@ import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.networking.ApiRequestListener;
 import com.mircea.sotan.repository.networking.ApiResponse;
 import com.mircea.sotan.repository.networking.NetworkError;
-import com.mircea.sotan.repository.networking.UserService;
+import com.mircea.sotan.repository.services.UserService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
