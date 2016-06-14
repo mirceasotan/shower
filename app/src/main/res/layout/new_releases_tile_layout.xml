@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
+    <com.sotan.mircea.shower.SquareImageView
         android:id="@+id/tile_imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tile_imageView"
         android:ellipsize="end"
-        android:lines="2"
+        android:lines="1"
         android:textSize="@dimen/reg2"
         android:padding="@dimen/space1"/>
 

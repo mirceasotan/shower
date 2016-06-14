@@ -2,23 +2,21 @@ package com.sotan.mircea.shower.newreleases.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mircea.sotan.model.SimpleAlbum;
-import com.sotan.mircea.shower.DisplayUtils;
 import com.sotan.mircea.shower.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -41,7 +39,7 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
     public NewReleasesAdapter(@Nullable List<SimpleAlbum> albumList, @NonNull Context context) {
         this.albumList = albumList;
         this.context = context;
-        this.type = Typeface.createFromAsset(context.getAssets(), "Roboto-Thin.ttf");
+        this.type = Typeface.createFromAsset(context.getAssets(), "Roboto-MediumItalic.ttf");
     }
 
     @Override
@@ -49,27 +47,8 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
         // Create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.new_releases_tile_layout, parent, false);
-
-        int width = DisplayUtils.getDisplayWidth(context);
-
         ViewHolder viewHolder = new ViewHolder(v);
-
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewHolder
-                .tileImageView.getLayoutParams();
-
-
-        if (width != params.width) {
-            Log.d("1ww","1");
-            params.height = width / 2;
-        } else {
-            Log.d("1ww","2");
-            params.height = 500;
-        }
-
-        viewHolder.tileImageView.setLayoutParams(params);
-
         viewHolder.tileTitleTextView.setTypeface(type);
-
         return viewHolder;
     }
 
@@ -81,7 +60,7 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
 
         SimpleAlbum album = albumList.get(position);
 
-        Picasso.with(context).load(album.getImages().get(1).getUrl()).into(holder.tileImageView, new Callback() {
+        Picasso.with(context).load(album.getImages().get(0).getUrl()).into(holder.tileImageView, new Callback() {
             @Override
             public void onSuccess() {
                 if (holder.tileBar != null) {
@@ -99,9 +78,8 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
                         if (swatch != null) {
                             holder.tileTitleTextView.setTextColor(swatch.getTitleTextColor());
                         } else {
-                            Log.d("aa", "null");
+                            holder.tileTitleTextView.setTextColor(Color.BLACK);
                         }
-
                     }
                 };
 
@@ -128,8 +106,8 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
     }
 
     // Provide a reference to the views for each data item
-// Complex data items may need more than one view per item, and
-// you provide access to all the views for a data item in a view holder
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public ImageView tileImageView;

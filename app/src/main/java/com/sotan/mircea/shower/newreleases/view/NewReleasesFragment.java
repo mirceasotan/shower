@@ -66,6 +66,14 @@ public class NewReleasesFragment extends Fragment implements NewReleaseView {
         });
 
         recyclerView.setLayoutManager(layoutManager);
+
+        int numColumns = 2;
+
+//        Drawable horizontalDivider = ContextCompat.getDrawable(getContext(), R.drawable.horizontal_divider);
+//        Drawable verticalDivider = ContextCompat.getDrawable(getContext(), R.drawable.vertical_divider);
+//
+//        recyclerView.addItemDecoration(new GridDividerItemDecoration(horizontalDivider, verticalDivider, numColumns));
+
     }
 
     @Override
