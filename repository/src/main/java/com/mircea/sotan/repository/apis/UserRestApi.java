@@ -1,22 +1,20 @@
 package com.mircea.sotan.repository.apis;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.networking.ApiRequestListener;
+import com.mircea.sotan.repository.networking.Listener;
 
 /**
  * Created by mircea
  */
-public interface UserRestApi extends RestApi {
+public interface UserRestApi {
     /**
      * Performs a HTTP call to retrieve current user's profile information. Call is performed
      * asynchronously.
      *
-     * @param uri      String representing the endpoint for retrieving user data
      * @param listener Contract used to pass API call resolution to upper
      *                 layers in a format that they can understand
      */
-    void getCurrentUserAsync(@NonNull String uri, @Nullable ApiRequestListener<PublicUser> listener);
+    void getCurrentUserAsync(@Nullable Listener<PublicUser> listener);
 }

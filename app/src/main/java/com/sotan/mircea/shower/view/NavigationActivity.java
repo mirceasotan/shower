@@ -3,27 +3,22 @@ package com.sotan.mircea.shower.view;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.sotan.mircea.shower.ActivityConstants;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
-import com.sotan.mircea.shower.presenter.NavigationActivityPresenterImpl;
+import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
 import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
-import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationRequest;
-import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Created by mircea
  */
-public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+public class NavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
         NavigationActivityView {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
@@ -43,7 +38,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Bind(R.id.navigation_view)
     NavigationView navigationView;
     @Inject
-    NavigationActivityPresenterImpl presenter;
+    NavigationActivityPresenter presenter;
     @Inject
     @Named("token")
     SharedPreferences tokenPreferences;
@@ -57,44 +52,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.home_activity_layout);
         ButterKnife.bind(this);
         ShowerApp.getInjector().inject(this);
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toolbarToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.drawer_content_desc_open, R.string.drawer_content_desc_closed);
-        drawerLayout.setDrawerListener(toolbarToggle);
-        toolbarToggle.syncState();
+        initActionBar();
 
-        navigationView.setNavigationItemSelectedListener(this);
-
-        presenter.bind(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // Check if result comes from the correct activity
-        if (requestCode == ActivityConstants.SPOTIFY_LOGIN_REQ_CODE) {
-            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
-
-            switch (response.getType()) {
-                // Response was successful and contains auth token
-                case TOKEN:
-                    // Handle successful response
-                    tokenPreferences.edit().putString("token", response.getAccessToken()).apply();
-                    break;
-
-                // Auth flow returned an error
-                case ERROR:
-                    Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-                    // Handle error response
-                    break;
-
-                // Most likely auth flow was cancelled
-                default:
-                    // Handle other cases
-            }
+        if (savedInstanceState == null) {
+            replaceFragment(NewReleasesFragment.newInstance(),
+                    R.id.navigation_activity_fragment_container,true);
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -117,20 +81,19 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                 startActivity(new Intent(this, MyAccountActivity.class));
                 break;
             case R.id.sign_in:
-                presenter.onHandleSignInMenuItemClick();
+                // presenter.onHandleSignInMenuItemClick();
                 break;
         }
 
         return false;
     }
 
-    @Override
-    public void openLoginActivity(@NonNull AuthenticationRequest request) {
-        AuthenticationClient.openLoginActivity(this, ActivityConstants.SPOTIFY_LOGIN_REQ_CODE, request);
-    }
-
-    @Override
-    public void showLoginRequestError() {
-
+    private void initActionBar() {
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toolbarToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.drawer_content_desc_open, R.string.drawer_content_desc_closed);
+        drawerLayout.setDrawerListener(toolbarToggle);
+        toolbarToggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 }

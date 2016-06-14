@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.sotan.mircea.shower.ConfigConstants;
 import com.sotan.mircea.shower.ConfigurationManager;
-import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
@@ -40,17 +39,7 @@ public class NavigationActivityPresenterImpl extends PresenterImpl
 
     @Override
     public void onHandleSignInMenuItemClick() {
-        if (getView() == null) {
-            return;
-        }
 
-        AuthenticationRequest request = buildAuthenticationRequest();
-
-        if (request == null) {
-            ((NavigationActivityView) getView()).showLoginRequestError();
-        } else {
-            ((NavigationActivityView) getView()).openLoginActivity(request);
-        }
     }
 
     @Override

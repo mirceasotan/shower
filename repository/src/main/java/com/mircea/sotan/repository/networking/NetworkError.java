@@ -1,15 +1,15 @@
 package com.mircea.sotan.repository.networking;
 
-public class NetworkError {
+import android.support.annotation.Nullable;
 
+/**
+ *
+ */
+public class NetworkError {
     private int httpCode = -1;
     private String code;
 
-    public NetworkError() {
-        super();
-    }
-
-    public NetworkError(int httpCode, String code) {
+    public NetworkError(int httpCode, @Nullable String code) {
         this.httpCode = httpCode;
         this.code = code;
     }
@@ -18,15 +18,18 @@ public class NetworkError {
         return httpCode;
     }
 
-    public void setHttpCode(int httpCode) {
-        this.httpCode = httpCode;
-    }
-
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(httpCode);
+
+        if (code != null) {
+            builder.append(code);
+        }
+        return builder.toString();
     }
 }

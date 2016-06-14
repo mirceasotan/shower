@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 /**
  * Created by mircea
  */
-public class ApiResponse<T> {
-    int httpCode;
-    T data;
+public class ResponseContainer<T> {
+    private int httpCode;
+    private T data;
 
-    public ApiResponse(T data, int httpCode) {
+    public ResponseContainer(T data, int httpCode) {
         this.data = data;
         this.httpCode = httpCode;
     }

@@ -3,6 +3,7 @@ package com.sotan.mircea.shower.presenter;
 import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.GetUserUseCase;
 import com.mircea.sotan.model.PublicUser;
+import com.mircea.sotan.repository.networking.NetworkError;
 import com.sotan.mircea.shower.presenter.contracts.MyAccountFragmentView;
 
 import javax.inject.Inject;
@@ -33,12 +34,12 @@ public class MyAccountFragmentPresenterImpl extends PresenterImpl
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError(NetworkError error) {
                 if (getView() == null) {
                     return;
                 }
 
-                ((MyAccountFragmentView) getView()).showUserError(errorMessage);
+                ((MyAccountFragmentView) getView()).showUserError();
             }
         });
     }

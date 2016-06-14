@@ -1,33 +1,32 @@
 package com.mircea.sotan.domain;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.apis.UserRestApi;
-import com.mircea.sotan.repository.networking.ResponseContainer;
+import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.mircea.sotan.repository.networking.Listener;
 import com.mircea.sotan.repository.networking.NetworkError;
+import com.mircea.sotan.repository.networking.ResponseContainer;
 
 import javax.inject.Inject;
 
 /**
  * @author mirceasotan
  */
-public class GetUserUseCaseImpl implements GetUserUseCase {
+public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
 
-    private final UserRestApi userRestApi;
+    private final BrowseRestApi browseRestApi;
 
     @Inject
-    public GetUserUseCaseImpl(@NonNull UserRestApi userRestApi) {
-        this.userRestApi = userRestApi;
+    public GetNewReleasesUseCaseImpl(BrowseRestApi browseRestApi) {
+        this.browseRestApi = browseRestApi;
     }
 
     @Override
-    public void getUser(@Nullable final DataListener<PublicUser> dataListener) {
-        userRestApi.getCurrentUserAsync(new Listener<PublicUser>() {
+    public void getNewReleases(@Nullable final DataListener<NewReleases> dataListener) {
+        browseRestApi.getNewReleasesAsync(new Listener<NewReleases>() {
             @Override
-            public void onResponse(ResponseContainer<PublicUser> apiResponse) {
+            public void onResponse(ResponseContainer<NewReleases> apiResponse) {
                 if (dataListener == null) {
                     return;
                 }

@@ -70,9 +70,9 @@ public class MyAccountFragment extends Fragment implements MyAccountFragmentView
     }
 
     @Override
-    public void showUserError(String message) {
+    public void showUserError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(message)
+        builder.setMessage("error")
                 .setPositiveButton("OK", null)
                 .setNegativeButton("Cancel", null);
         builder.create().show();

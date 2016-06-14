@@ -1,9 +1,11 @@
 package com.sotan.mircea.shower.modules;
 
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
 import com.sotan.mircea.shower.view.MyAccountActivity;
 import com.sotan.mircea.shower.view.MyAccountFragment;
 import com.sotan.mircea.shower.view.NavigationActivity;
+import com.sotan.mircea.shower.view.SplashActivity;
 
 import javax.inject.Singleton;
 
@@ -22,4 +24,8 @@ public interface ApplicationComponent {
     void inject(ShowerApp showerApp);
 
     void inject(MyAccountActivity myAccountActivity);
+
+    void inject(SplashActivity splashActivity);
+
+    void inject(NewReleasesFragment newReleasesFragment);
 }

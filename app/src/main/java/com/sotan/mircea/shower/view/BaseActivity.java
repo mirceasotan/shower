@@ -9,7 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by mircea
  */
-public class BaseActivity extends AppCompatActivity {
+public  class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     protected void replaceFragment(@NonNull Fragment fragment, @IdRes int containerId) {
         replaceFragment(fragment, containerId, false);
@@ -25,5 +30,4 @@ public class BaseActivity extends AppCompatActivity {
 
         fragmentTransaction.commitAllowingStateLoss();
     }
-
 }

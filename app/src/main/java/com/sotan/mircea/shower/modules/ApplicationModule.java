@@ -2,13 +2,19 @@ package com.sotan.mircea.shower.modules;
 
 import android.content.Context;
 
+import com.mircea.sotan.domain.GetNewReleasesUseCase;
+import com.mircea.sotan.domain.GetNewReleasesUseCaseImpl;
 import com.mircea.sotan.domain.GetUserUseCase;
+import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.sotan.mircea.shower.ConfigurationManager;
 import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.presenter.MyAccountFragmentPresenter;
 import com.sotan.mircea.shower.presenter.MyAccountFragmentPresenterImpl;
+import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
 import com.sotan.mircea.shower.presenter.NavigationActivityPresenterImpl;
+import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
+import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenterImpl;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -29,14 +35,23 @@ public class ApplicationModule {
     }
 
     @Provides
-    public NavigationActivityPresenterImpl providesNavigationActivityPresenter(ConfigurationManager manager) {
+    public NavigationActivityPresenter providesNavigationActivityPresenter(ConfigurationManager manager) {
         return new NavigationActivityPresenterImpl(manager);
     }
-
 
     @Provides
     public MyAccountFragmentPresenter providesMyAccountFragmentPresenter(GetUserUseCase getUserUseCase) {
         return new MyAccountFragmentPresenterImpl(getUserUseCase);
+    }
+
+    @Provides
+    public NewReleasesPresenter provideNewReleasePresenter(GetNewReleasesUseCase useCase) {
+        return new NewReleasesPresenterImpl(useCase);
+    }
+
+    @Provides
+    public GetNewReleasesUseCase providesGetNewReleaseUseCase(BrowseRestApi restApi) {
+        return new GetNewReleasesUseCaseImpl(restApi);
     }
 
     @Singleton

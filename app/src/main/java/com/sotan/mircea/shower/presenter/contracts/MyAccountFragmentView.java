@@ -8,5 +8,5 @@ import com.mircea.sotan.model.PublicUser;
 public interface MyAccountFragmentView extends MVPView{
     void showUser(PublicUser publicUser);
 
-    void showUserError(String message);
+    void showUserError();
 }

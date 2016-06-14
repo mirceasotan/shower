@@ -19,10 +19,9 @@ import javax.inject.Named;
 public class ShowerApp extends Application {
     public static String TAG = "ShowerApp";
     private static ApplicationComponent injector;
-
     @Inject
     @Named("GTMLogger")
-    public Logger logger;
+    Logger logger;
 
     public static ApplicationComponent getInjector() {
         return injector;
@@ -36,6 +35,9 @@ public class ShowerApp extends Application {
         logger.init();
     }
 
+    /**
+     *
+     */
     private void initDagger() {
         injector = DaggerApplicationComponent.builder()
                 .androidModule(new AndroidModule(this))
