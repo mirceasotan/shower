@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <com.sotan.mircea.shower.widget.SquareImageView
@@ -18,8 +19,8 @@
         android:layout_below="@+id/tile_imageView"
         android:ellipsize="end"
         android:lines="1"
-        android:textSize="@dimen/reg2"
-        android:padding="@dimen/space1"/>
+        android:padding="@dimen/space16"
+        android:textSize="@dimen/reg2" />
 
     <ProgressBar
         android:id="@+id/tile_imageSpinner"

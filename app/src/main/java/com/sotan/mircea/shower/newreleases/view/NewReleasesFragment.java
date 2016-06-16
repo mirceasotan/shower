@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.mircea.sotan.model.NewReleases;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.misc.HidingScrollListener;
 import com.sotan.mircea.shower.misc.VerticalSpaceItemDecoration;
 import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
 
@@ -66,8 +67,21 @@ public class NewReleasesFragment extends Fragment implements NewReleaseView {
             }
         });
 
+        int valueInPixels = (int) getResources().getDimension(R.dimen.space4);
+
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(20));
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(valueInPixels));
+        recyclerView.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+
+            }
+
+            @Override
+            public void onShow() {
+
+            }
+        });
     }
 
     @Override
@@ -138,4 +152,5 @@ public class NewReleasesFragment extends Fragment implements NewReleaseView {
     public void showNewReleasesApiError() {
 
     }
+    
 }

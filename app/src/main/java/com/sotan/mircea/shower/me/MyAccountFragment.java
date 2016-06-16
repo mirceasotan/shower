@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.model.PublicUser;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.squareup.picasso.Picasso;
@@ -62,7 +62,7 @@ public class MyAccountFragment extends Fragment implements MyAccountFragmentView
     }
 
     @Override
-    public void showUser(NewReleases publicUser) {
+    public void showUser(PublicUser publicUser) {
         Picasso.with(getContext()).load(publicUser.getImages().get(0).getUrl()).into(myAccountImageView);
 
     }

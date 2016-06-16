@@ -18,28 +18,28 @@ public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
                                RecyclerView.State state) {
 
-//        outRect.bottom = offset;
-//
-//        int position = parent.getChildAdapterPosition(view);
-//        int positionBefore = position--;
-//
-//        if (position % 3 == 0) {
-//            outRect.left = offset;
-//            outRect.right = offset;
-//        } else {
-//            if (positionBefore >= 0) {
-//                if (positionBefore % 3 == 0 && positionBefore % 2 == 0) {
-//                    outRect.right = offset / 2;
-//                    outRect.left = offset;
-//                } else {
-//                    outRect.left = offset / 2;
-//                    outRect.right = offset;
-//                }
-//            }
-//        }
-//
-//        if (position == 0) {
-//            outRect.top = offset;
-//        }
+        outRect.bottom = offset;
+
+        int position = parent.getChildAdapterPosition(view);
+        int positionBefore = position - 1;
+
+        if (position % 3 == 0) {
+            outRect.left = offset;
+            outRect.right = offset;
+        } else {
+            if (positionBefore >= 0) {
+                if (positionBefore % 3 == 0) {
+                    outRect.right = offset / 2;
+                    outRect.left = offset;
+                } else {
+                    outRect.left = offset / 2;
+                    outRect.right = offset;
+                }
+            }
+        }
+
+        if (position == 0) {
+            outRect.top = offset;
+        }
     }
 }

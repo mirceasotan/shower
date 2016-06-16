@@ -76,14 +76,14 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
     public boolean onNavigationItemSelected(MenuItem item) {
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
-            case R.id.my_account:
+            case R.id.me:
                 logger.log(new GAEvent.GAEventBuilder().withCategory("Navigation")
                         .withAction("Navigation menu item click")
                         .withLabel("My Account")
                         .withScreenName("Home").build());
                 startActivity(new Intent(this, MyAccountActivity.class));
                 break;
-            case R.id.sign_in:
+            case R.id.sign_out:
                 // presenter.onHandleSignInMenuItemClick();
                 break;
         }

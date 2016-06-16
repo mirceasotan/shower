@@ -5,9 +5,13 @@
     <string name="drawer_content_desc_open">Drawer is closed</string>
 
     //Drawer menu items
-    <string name="my_account">My Account</string>
-    <string name="sign_in">Sign In</string>
+    <string name="my_account">Me</string>
+    <string name="sign_out">Sign Out</string>
     <string name="new_releases">New Releases</string>
+    <string name="categories">Browse Categories</string>
+    <string name="playlists">PlayLists</string>
+    <string name="albums">Albums</string>
+
 
     //Splash Screen
     <string name="splash_text">Shower</string>

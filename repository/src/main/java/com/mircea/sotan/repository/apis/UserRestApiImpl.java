@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.networking.*;
 import com.mircea.sotan.repository.services.UserService;
 
@@ -27,8 +28,8 @@ public class UserRestApiImpl extends RestApi implements UserRestApi {
      * See {@link UserRestApi#getCurrentUserAsync(Listener)}
      */
     @Override
-    public void getCurrentUserAsync(@Nullable final Listener<NewReleases> listener) {
-        Call<NewReleases> call = userService.getCurrentUser();
+    public void getCurrentUserAsync(@Nullable final Listener<PublicUser> listener) {
+        Call<PublicUser> call = userService.getCurrentUser();
         enqueueAsync(call, listener);
     }
 }
