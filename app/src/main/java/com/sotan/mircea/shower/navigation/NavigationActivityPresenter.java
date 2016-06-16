@@ -1,4 +1,6 @@
-package com.sotan.mircea.shower.presenter;
+package com.sotan.mircea.shower.navigation;
+
+import com.sotan.mircea.shower.presenter.Presenter;
 
 /**
  * Created by mircea

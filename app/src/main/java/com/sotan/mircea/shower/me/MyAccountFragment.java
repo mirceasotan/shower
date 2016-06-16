@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.view;
+package com.sotan.mircea.shower.me;
 
 
 import android.os.Bundle;
@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.mircea.sotan.model.PublicUser;
+import com.mircea.sotan.model.NewReleases;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.presenter.MyAccountFragmentPresenter;
-import com.sotan.mircea.shower.presenter.contracts.MyAccountFragmentView;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -64,7 +62,7 @@ public class MyAccountFragment extends Fragment implements MyAccountFragmentView
     }
 
     @Override
-    public void showUser(PublicUser publicUser) {
+    public void showUser(NewReleases publicUser) {
         Picasso.with(getContext()).load(publicUser.getImages().get(0).getUrl()).into(myAccountImageView);
 
     }

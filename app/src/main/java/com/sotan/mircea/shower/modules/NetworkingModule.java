@@ -82,8 +82,6 @@ public class NetworkingModule {
         Headers headers = request.headers();
         Set<String> names = headers.names();
 
-        Log.d(ShowerApp.TAG, request.url().toString());
-
         for (String name : names) {
             String value = headers.get(name);
             Log.d(ShowerApp.TAG, name + " : " + value);

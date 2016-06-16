@@ -9,10 +9,10 @@ import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.sotan.mircea.shower.ConfigurationManager;
 import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
-import com.sotan.mircea.shower.presenter.MyAccountFragmentPresenter;
-import com.sotan.mircea.shower.presenter.MyAccountFragmentPresenterImpl;
-import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
-import com.sotan.mircea.shower.presenter.NavigationActivityPresenterImpl;
+import com.sotan.mircea.shower.me.MyAccountFragmentPresenter;
+import com.sotan.mircea.shower.me.MyAccountFragmentPresenterImpl;
+import com.sotan.mircea.shower.navigation.NavigationActivityPresenter;
+import com.sotan.mircea.shower.navigation.NavigationActivityPresenterImpl;
 import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
 import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenterImpl;
 

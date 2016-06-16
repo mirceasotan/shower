@@ -3,7 +3,7 @@ package com.mircea.sotan.repository.apis;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.model.PublicUser;
+import com.mircea.sotan.model.NewReleases;
 import com.mircea.sotan.repository.networking.*;
 import com.mircea.sotan.repository.services.UserService;
 
@@ -15,23 +15,20 @@ import retrofit2.Retrofit;
  *
  * @author mircea on 4/4/16
  */
-public class UserRestApiImpl implements UserRestApi {
-
+public class UserRestApiImpl extends RestApi implements UserRestApi {
     private final UserService userService;
-    private final Log log;
 
     public UserRestApiImpl(@NonNull Retrofit retrofit, Log log) {
+        super(log);
         userService = retrofit.create(UserService.class);
-        this.log = log;
     }
 
     /**
      * See {@link UserRestApi#getCurrentUserAsync(Listener)}
      */
     @Override
-    public void getCurrentUserAsync(@Nullable final Listener<PublicUser> listener) {
-        Call<PublicUser> call = userService.getCurrentUser();
-        com.mircea.sotan.repository.networking.RestApi<PublicUser> restApi = new com.mircea.sotan.repository.networking.RestApi<>(log);
-        restApi.enqueueAsync(call, listener);
+    public void getCurrentUserAsync(@Nullable final Listener<NewReleases> listener) {
+        Call<NewReleases> call = userService.getCurrentUser();
+        enqueueAsync(call, listener);
     }
 }

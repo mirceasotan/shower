@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by mircea
  */
-public class PrivateUser extends PublicUser {
+public class PrivateUser extends NewReleases {
     @SerializedName("birthdate")
     private String birthDate;
     @SerializedName("country")

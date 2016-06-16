@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.view;
+package com.sotan.mircea.shower.me;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
+import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;
 import javax.inject.Named;

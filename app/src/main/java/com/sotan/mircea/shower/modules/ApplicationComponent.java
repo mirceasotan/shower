@@ -2,9 +2,9 @@ package com.sotan.mircea.shower.modules;
 
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
-import com.sotan.mircea.shower.view.MyAccountActivity;
-import com.sotan.mircea.shower.view.MyAccountFragment;
-import com.sotan.mircea.shower.view.NavigationActivity;
+import com.sotan.mircea.shower.me.MyAccountActivity;
+import com.sotan.mircea.shower.me.MyAccountFragment;
+import com.sotan.mircea.shower.navigation.NavigationActivity;
 import com.sotan.mircea.shower.view.SplashActivity;
 
 import javax.inject.Singleton;

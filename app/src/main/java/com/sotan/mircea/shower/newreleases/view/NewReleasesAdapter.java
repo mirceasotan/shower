@@ -60,6 +60,8 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
 
         SimpleAlbum album = albumList.get(position);
 
+        holder.tileBar.setVisibility(View.VISIBLE);
+
         Picasso.with(context).load(album.getImages().get(0).getUrl()).into(holder.tileImageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -73,6 +75,7 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
                     public void onGenerated(Palette palette) {
                         // access palette colors here
                         holder.tileTitleTextView.setBackgroundColor(palette.getVibrantColor(0x000000));
+
                         Palette.Swatch swatch = palette.getVibrantSwatch();
 
                         if (swatch != null) {

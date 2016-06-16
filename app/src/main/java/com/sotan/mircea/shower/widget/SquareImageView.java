@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower;
+package com.sotan.mircea.shower.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;

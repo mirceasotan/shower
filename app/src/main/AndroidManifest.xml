@@ -18,9 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.NavigationActivity" />
+        <activity android:name=".navigation.NavigationActivity" />
         <activity android:name="com.spotify.sdk.android.authentication.LoginActivity" />
-        <activity android:name=".view.MyAccountActivity" />
+        <activity android:name=".me.MyAccountActivity" />
     </application>
 
 </manifest>

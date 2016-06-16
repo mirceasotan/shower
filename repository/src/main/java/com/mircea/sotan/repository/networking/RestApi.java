@@ -3,6 +3,10 @@ package com.mircea.sotan.repository.networking;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.net.HttpURLConnection;
+import java.util.HashSet;
+import java.util.Set;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -10,13 +14,75 @@ import retrofit2.Response;
 /**
  * @author mirceasotan
  */
-public class RestApi<T> {
+public class RestApi {
     public static final int DEFAULT_HTTP_CONNECTION_ERROR_CODE = -1;
     public static final String NO_INTERNET_CONNECTION_MESSAGE = "No Internet Connection";
+    public final Set<Call<?>> waitingCalls = new HashSet<>();
     private final Log log;
 
     public RestApi(@NonNull Log log) {
         this.log = log;
+    }
+
+    /**
+     * @param call     Retrofit Http call to be performed
+     * @param listener callback for notifying observers that call finished with a resolution
+     */
+    public <T> void enqueueAsync(@NonNull Call<T> call, @Nullable final Listener<T> listener) {
+        if (log.isLoggingEnabled()) {
+            log.log(call.request().url().toString());
+        }
+
+        call.enqueue(new Callback<T>() {
+            @Override
+            public void onResponse(Call<T> call, Response<T> response) {
+                if (response != null && response.isSuccessful()) {
+                    handleSuccessResponse(response, listener);
+                } else {
+                    handleErrorResponse(response, listener);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<T> call, Throwable t) {
+                handleErrorResponse(null, listener);
+            }
+        });
+    }
+
+    private <T> void handleErrorResponse(Response<T> response, @Nullable Listener<T> listener) {
+        NetworkError error;
+        if (response == null) {
+            error = new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE,
+                    NO_INTERNET_CONNECTION_MESSAGE);
+        } else {
+            error = createNetworkErrorFromResponse(response);
+        }
+
+        if (error.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+
+        } else {
+            if (listener != null) {
+                listener.onError(error);
+            }
+        }
+
+        if (log.isLoggingEnabled()) {
+            log.log(error.toString());
+        }
+    }
+
+    private <T> void handleSuccessResponse(Response<T> response, @Nullable Listener<T> listener) {
+        ResponseContainer<T> responseContainer = new ResponseContainer<>(response.body(),
+                response.code());
+
+        if (log.isLoggingEnabled()) {
+            log.log("Response : " + response.code());
+        }
+
+        if (listener != null) {
+            listener.onResponse(responseContainer);
+        }
     }
 
     /**
@@ -35,62 +101,8 @@ public class RestApi<T> {
         }
     }
 
-    /**
-     * @param call
-     * @param listener
-     */
-    public void enqueueAsync(@NonNull Call<T> call, @Nullable final Listener<T> listener) {
-        call.enqueue(new Callback<T>() {
-            @Override
-            public void onResponse(Call<T> call, Response<T> response) {
-
-
-                if (response != null && response.isSuccessful()) {
-                    if (listener == null) {
-                        return;
-                    }
-
-                    ResponseContainer responseContainer = new ResponseContainer<>(response.body(),
-                            response.code());
-
-                    if (log.isLoggingEnabled()) {
-                        log.log("Response : " + response.code());
-                    }
-
-                    listener.onResponse(new ResponseContainer<>(response.body(), response.code()));
-                } else {
-                    NetworkError error = createNetworkErrorFromResponse(response);
-
-                    if (log.isLoggingEnabled()) {
-                        log.log(error.toString());
-                    }
-
-                    if (listener == null) {
-                        return;
-                    }
-
-                    listener.onError(error);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<T> call, Throwable t) {
-                NetworkError error = new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE,
-                        NO_INTERNET_CONNECTION_MESSAGE);
-
-                if (log.isLoggingEnabled()) {
-                    log.log(error.toString());
-                }
-
-                if (listener == null) {
-                    return;
-                }
-
-                listener.onError(error);
-            }
-        });
+    private void handleUnauthorizedResponse(@NonNull Call call) {
+        waitingCalls.add(call);
     }
-
-
 }
 

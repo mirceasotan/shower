@@ -27,20 +27,16 @@ public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
         browseRestApi.getNewReleasesAsync(new Listener<NewReleases>() {
             @Override
             public void onResponse(ResponseContainer<NewReleases> apiResponse) {
-                if (dataListener == null) {
-                    return;
+                if (dataListener != null) {
+                    dataListener.onResponse(apiResponse.getData());
                 }
-
-                dataListener.onResponse(apiResponse.getData());
             }
 
             @Override
             public void onError(NetworkError error) {
-                if (dataListener == null) {
-                    return;
+                if (dataListener != null) {
+                    dataListener.onError(error);
                 }
-
-                dataListener.onError(error);
             }
         });
     }

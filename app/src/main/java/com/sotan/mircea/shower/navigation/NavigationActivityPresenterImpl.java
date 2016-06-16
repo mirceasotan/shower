@@ -1,10 +1,11 @@
-package com.sotan.mircea.shower.presenter;
+package com.sotan.mircea.shower.navigation;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.sotan.mircea.shower.ConfigConstants;
 import com.sotan.mircea.shower.ConfigurationManager;
+import com.sotan.mircea.shower.presenter.PresenterImpl;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 

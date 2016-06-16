@@ -35,5 +35,4 @@ public class PresenterImpl implements Presenter {
 
         return null;
     }
-
 }

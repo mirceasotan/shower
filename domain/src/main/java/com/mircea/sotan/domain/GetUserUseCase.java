@@ -2,7 +2,7 @@ package com.mircea.sotan.domain;
 
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.model.PublicUser;
+import com.mircea.sotan.model.NewReleases;
 
 /**
  * Created by mircea
@@ -14,5 +14,5 @@ public interface GetUserUseCase extends UseCase {
      *
      * @param dataListener
      */
-    void getUser(@Nullable DataListener<PublicUser> dataListener);
+    void getUser(@Nullable DataListener<NewReleases> dataListener);
 }

@@ -15,6 +15,7 @@ import com.sotan.mircea.shower.ConfigConstants;
 import com.sotan.mircea.shower.ConfigurationManager;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.navigation.NavigationActivity;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;

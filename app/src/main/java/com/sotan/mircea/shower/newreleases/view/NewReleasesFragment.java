@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.mircea.sotan.model.NewReleases;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.misc.VerticalSpaceItemDecoration;
 import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
 
 import javax.inject.Inject;
@@ -66,14 +67,7 @@ public class NewReleasesFragment extends Fragment implements NewReleaseView {
         });
 
         recyclerView.setLayoutManager(layoutManager);
-
-        int numColumns = 2;
-
-//        Drawable horizontalDivider = ContextCompat.getDrawable(getContext(), R.drawable.horizontal_divider);
-//        Drawable verticalDivider = ContextCompat.getDrawable(getContext(), R.drawable.vertical_divider);
-//
-//        recyclerView.addItemDecoration(new GridDividerItemDecoration(horizontalDivider, verticalDivider, numColumns));
-
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(20));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.view;
+package com.sotan.mircea.shower.navigation;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -16,9 +18,10 @@ import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
-import com.sotan.mircea.shower.presenter.NavigationActivityPresenter;
-import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
+import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
+import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
+import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,7 +59,7 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
 
         if (savedInstanceState == null) {
             replaceFragment(NewReleasesFragment.newInstance(),
-                    R.id.navigation_activity_fragment_container,true);
+                    R.id.navigation_activity_fragment_container, true);
         }
     }
 
@@ -95,5 +98,16 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
         drawerLayout.setDrawerListener(toolbarToggle);
         toolbarToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+
+
+
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
