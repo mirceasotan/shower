@@ -152,5 +152,5 @@ public class NewReleasesFragment extends Fragment implements NewReleaseView {
     public void showNewReleasesApiError() {
 
     }
-    
+
 }
