@@ -23,7 +23,8 @@ public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
     }
 
     @Override
-    public void getNewReleases(@Nullable final DataListener<NewReleases> dataListener) {
+    public void getNewReleases(@Nullable final DataListener<NewReleases> dataListener, int offset,
+                               int limit) {
         browseRestApi.getNewReleasesAsync(new Listener<NewReleases>() {
             @Override
             public void onResponse(ResponseContainer<NewReleases> apiResponse) {
@@ -38,6 +39,6 @@ public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
                     dataListener.onError(error);
                 }
             }
-        });
+        }, offset, limit);
     }
 }

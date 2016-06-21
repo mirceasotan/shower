@@ -15,9 +15,12 @@ import javax.inject.Inject;
 /**
  * @author mirceasotan
  */
-public class NewReleasesPresenterImpl extends PresenterImpl implements NewReleasesPresenter {
-
+public class NewReleasesPresenterImpl extends PresenterImpl<NewReleaseView>
+        implements NewReleasesPresenter {
     private final GetNewReleasesUseCase newReleasesUseCase;
+    private static final int DEFAULT_LIMIT = 20;
+    private int offset;
+    private int limit = DEFAULT_LIMIT;
 
     @Inject
     public NewReleasesPresenterImpl(@NonNull GetNewReleasesUseCase newReleasesUseCase) {
@@ -29,25 +32,23 @@ public class NewReleasesPresenterImpl extends PresenterImpl implements NewReleas
         newReleasesUseCase.getNewReleases(new DataListener<NewReleases>() {
             @Override
             public void onResponse(NewReleases data) {
-                if (getView() == null) {
-                    return;
+                if (getView() != null) {
+                    getView().showNewReleases(data);
                 }
 
-                ((NewReleaseView) getView()).showNewReleases(data);
+                offset = offset + limit;
             }
 
             @Override
             public void onError(NetworkError error) {
-                if (getView() == null) {
-                    return;
-                }
-
-                if (RestApi.NO_INTERNET_CONNECTION_MESSAGE.equalsIgnoreCase(error.getCode())) {
-                    ((NewReleaseView) getView()).showNewReleasesNoConnectionError();
-                } else {
-                    ((NewReleaseView) getView()).showNewReleasesApiError();
+                if (getView() != null) {
+                    if (RestApi.NO_INTERNET_CONNECTION_MESSAGE.equalsIgnoreCase(error.getCode())) {
+                        getView().showNewReleasesNoConnectionError();
+                    } else {
+                        getView().showNewReleasesApiError();
+                    }
                 }
             }
-        });
+        }, offset, limit);
     }
 }

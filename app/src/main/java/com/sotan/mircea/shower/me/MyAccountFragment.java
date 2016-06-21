@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * Created by mircea
  */
-public class MyAccountFragment extends Fragment implements MyAccountFragmentView {
+public class MyAccountFragment extends Fragment implements MyAccountView {
 
     @Inject
     MyAccountFragmentPresenter presenter;

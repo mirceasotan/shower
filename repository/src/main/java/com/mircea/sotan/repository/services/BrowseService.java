@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * @author mirceasotan
@@ -19,7 +20,7 @@ public interface BrowseService {
      * @return New Releases API call
      */
     @GET("/v1/browse/new-releases")
-    Call<NewReleases> getNewReleases();
+    Call<NewReleases> getNewReleases(@Query("offset") int offset, @Query("limit") int limit);
 
     /**
      * Get a list of categories used to tag items in Spotify (on, for example,

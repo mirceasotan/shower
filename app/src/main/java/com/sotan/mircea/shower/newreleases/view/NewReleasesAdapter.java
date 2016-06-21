@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.mircea.sotan.model.SimpleAlbum;
 import com.sotan.mircea.shower.R;
+import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -35,11 +36,14 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
     private final Context context;
     @NonNull
     private final Typeface type;
+    private RecyclerItemClickListener listener;
 
-    public NewReleasesAdapter(@Nullable List<SimpleAlbum> albumList, @NonNull Context context) {
+    public NewReleasesAdapter(@Nullable List<SimpleAlbum> albumList, @NonNull Context context,
+                              @Nullable RecyclerItemClickListener listener) {
         this.albumList = albumList;
         this.context = context;
         this.type = Typeface.createFromAsset(context.getAssets(), "Roboto-MediumItalic.ttf");
+        this.listener = listener;
     }
 
     @Override
@@ -58,7 +62,15 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
             return;
         }
 
-        SimpleAlbum album = albumList.get(position);
+
+        final SimpleAlbum album = albumList.get(position);
+
+        holder.parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(album);
+            }
+        });
 
         holder.tileBar.setVisibility(View.VISIBLE);
 
@@ -116,12 +128,24 @@ public class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.
         public ImageView tileImageView;
         public TextView tileTitleTextView;
         public ProgressBar tileBar;
+        public View parent;
 
         public ViewHolder(View t) {
             super(t);
             tileImageView = ButterKnife.findById(t, R.id.tile_imageView);
             tileTitleTextView = ButterKnife.findById(t, R.id.tile_titleTextView);
             tileBar = ButterKnife.findById(t, R.id.tile_imageSpinner);
+            parent = t;
         }
+    }
+
+    @Nullable
+    public List<SimpleAlbum> getAlbumList() {
+        return albumList;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }

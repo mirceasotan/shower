@@ -17,6 +17,7 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -38,58 +39,58 @@ public class GetNewReleasesUseCaseTest {
     @Mock
     private NetworkError networkError;
     private GetNewReleasesUseCaseImpl getNewReleasesUseCase;
+    int offset;
+    int limit;
 
     @Before
     public void init() {
         initMocks(this);
         getNewReleasesUseCase = new GetNewReleasesUseCaseImpl(browseRestApiMock);
+        offset = 0;
+        limit = 20;
     }
 
     @Test
     public void test_getNewReleases_success_nullDataListener() {
-        getNewReleasesUseCase.getNewReleases(null);
-
-        verify(browseRestApiMock).getNewReleasesAsync(Matchers.<Listener<NewReleases>>any());
-        verify(browseRestApiMock, times(1)).getNewReleasesAsync(argumentCaptor.capture());
-
+        getNewReleasesUseCase.getNewReleases(null, offset, limit);
+        verify(browseRestApiMock)
+                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
+        verify(browseRestApiMock, times(1))
+                .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(newReleases, 200));
-
         verify(dataListenerMock, never()).onResponse(newReleases);
     }
 
     @Test
     public void test_getNewReleases_success_nonNullDataListener() {
-        getNewReleasesUseCase.getNewReleases(dataListenerMock);
-
-        verify(browseRestApiMock).getNewReleasesAsync(Matchers.<Listener<NewReleases>>any());
-        verify(browseRestApiMock, times(1)).getNewReleasesAsync(argumentCaptor.capture());
-
+        getNewReleasesUseCase.getNewReleases(dataListenerMock, offset, limit);
+        verify(browseRestApiMock)
+                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
+        verify(browseRestApiMock, times(1))
+                .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(newReleases, 200));
-
         verify(dataListenerMock).onResponse(newReleases);
     }
 
     @Test
     public void test_getNewReleases_error_nullDataListener() {
-        getNewReleasesUseCase.getNewReleases(null);
-
-        verify(browseRestApiMock).getNewReleasesAsync(Matchers.<Listener<NewReleases>>any());
-        verify(browseRestApiMock, times(1)).getNewReleasesAsync(argumentCaptor.capture());
-
+        getNewReleasesUseCase.getNewReleases(null, offset, limit);
+        verify(browseRestApiMock)
+                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
+        verify(browseRestApiMock, times(1))
+                .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onError(networkError);
-
         verify(dataListenerMock, never()).onError(networkError);
     }
 
     @Test
     public void test_getNewReleases_error_nonNullDataListener() {
-        getNewReleasesUseCase.getNewReleases(dataListenerMock);
-
-        verify(browseRestApiMock).getNewReleasesAsync(Matchers.<Listener<NewReleases>>any());
-        verify(browseRestApiMock, times(1)).getNewReleasesAsync(argumentCaptor.capture());
-
+        getNewReleasesUseCase.getNewReleases(dataListenerMock, offset, limit);
+        verify(browseRestApiMock)
+                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
+        verify(browseRestApiMock, times(1))
+                .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onError(networkError);
-
         verify(dataListenerMock).onError(networkError);
     }
 }

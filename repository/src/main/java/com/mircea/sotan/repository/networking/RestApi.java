@@ -39,22 +39,26 @@ public class RestApi {
                 if (response != null && response.isSuccessful()) {
                     handleSuccessResponse(response, listener);
                 } else {
-                    handleErrorResponse(response, listener);
+                    handleErrorResponse(response, listener, null);
                 }
             }
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                handleErrorResponse(null, listener);
+                handleErrorResponse(null, listener, null);
             }
         });
     }
 
-    private <T> void handleErrorResponse(Response<T> response, @Nullable Listener<T> listener) {
+    private <T> void handleErrorResponse(Response<T> response, @Nullable Listener<T> listener,
+                                         @Nullable Throwable t) {
         NetworkError error;
-        if (response == null) {
+
+        if (response == null && t == null) {
             error = new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE,
                     NO_INTERNET_CONNECTION_MESSAGE);
+        } else if (response == null) {
+            error = new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE, t.getMessage());
         } else {
             error = createNetworkErrorFromResponse(response);
         }

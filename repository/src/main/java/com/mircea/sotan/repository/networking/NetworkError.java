@@ -30,6 +30,7 @@ public class NetworkError {
         if (code != null) {
             builder.append(code);
         }
+
         return builder.toString();
     }
 }

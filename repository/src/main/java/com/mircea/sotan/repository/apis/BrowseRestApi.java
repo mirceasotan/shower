@@ -15,7 +15,7 @@ public interface BrowseRestApi {
     /**
      * @param listener Callback used for notifying caller about request resolution
      */
-    void getNewReleasesAsync(@Nullable Listener<NewReleases> listener);
+    void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit);
 
     /**
      * @param listener Callback used for notifying caller about request resolution

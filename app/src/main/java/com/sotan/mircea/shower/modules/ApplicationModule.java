@@ -58,6 +58,6 @@ public class ApplicationModule {
     @Provides
     @Named("GTMLogger")
     public Logger provideLogger(Context context) {
-        return new GTMLogger(context);
+        return new GTMLogger(context,"GTM-KLQ6C4");
     }
 }

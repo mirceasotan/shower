@@ -14,5 +14,5 @@ public interface GetNewReleasesUseCase {
      *
      * @param dataListener
      */
-    void getNewReleases(@Nullable DataListener<NewReleases> dataListener);
+    void getNewReleases(@Nullable DataListener<NewReleases> dataListener, int offset, int limit);
 }

@@ -3,12 +3,11 @@ package com.sotan.mircea.shower.newreleases.view;
 import android.support.annotation.NonNull;
 
 import com.mircea.sotan.model.NewReleases;
-import com.sotan.mircea.shower.presenter.contracts.MVPView;
 
 /**
  * @author mirceasotan
  */
-public interface NewReleaseView extends MVPView {
+public interface NewReleaseView {
     /**
      * @param newReleases
      */
@@ -20,6 +19,7 @@ public interface NewReleaseView extends MVPView {
     void showNewReleasesNoConnectionError();
 
     /**
+     *
      */
     void showNewReleasesApiError();
 }

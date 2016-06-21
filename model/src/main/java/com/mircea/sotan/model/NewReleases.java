@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class NewReleases extends GsonObject {
     @SerializedName("albums")
-    private SimpleAlbums simpleAlbums;
+    private BasePaging<SimpleAlbum> simpleAlbums;
 
-    public SimpleAlbums getSimpleAlbums() {
+    public BasePaging<SimpleAlbum> getSimpleAlbums() {
         return simpleAlbums;
     }
 }

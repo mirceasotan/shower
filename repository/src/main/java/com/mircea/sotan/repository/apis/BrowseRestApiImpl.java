@@ -26,8 +26,8 @@ public class BrowseRestApiImpl extends RestApi implements BrowseRestApi {
     }
 
     @Override
-    public void getNewReleasesAsync(@Nullable Listener<NewReleases> listener) {
-        Call<NewReleases> call = browseService.getNewReleases();
+    public void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit) {
+        Call<NewReleases> call = browseService.getNewReleases(offset, limit);
         enqueueAsync(call, listener);
     }
 

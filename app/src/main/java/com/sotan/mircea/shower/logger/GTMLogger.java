@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.tagmanager.Container;
 import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
@@ -37,38 +38,60 @@ public class GTMLogger implements Logger {
     @NonNull
     private Context context;
     private boolean initialized;
+    private TagManager tagManager;
+    private String id;
+
 
     @Inject
-    public GTMLogger(@NonNull Context context) {
+    public GTMLogger(@NonNull Context context, @NonNull String id) {
+        Log.d(ShowerApp.TAG, "Logger constructor");
         this.context = context;
+        this.id = id;
     }
 
     @Override
     public void init() {
-        TagManager tagManager = TagManager.getInstance(context);
 
-        if (BuildConfig.DEBUG) {
-            tagManager.setVerboseLoggingEnabled(true);
-        }
+        tagManager = TagManager.getInstance(context);
 
-        // The onResult method will be called as soon as one of the following happens:
-        // 1. a saved container is loaded
-        // 2. if there is no saved container, a network container is loaded
-        // 3. the 2-second timeout occurs
-        PendingResult<ContainerHolder> pending =
-                tagManager.loadContainerPreferNonDefault("GTM-KLQ6C4", R.raw.gtm_klq6c4);
-        pending.setResultCallback(new ResultCallback<ContainerHolder>() {
-            @Override
-            public void onResult(@NonNull ContainerHolder containerHolder) {
-                handleLoadContainerResult(containerHolder);
+        ContainerHolder c = ContainerHolderSingleton.getContainerWithId(id);
+
+        if (c == null) {
+            // The onResult method will be called as soon as one of the following happens:
+            // 1. a saved container is loaded
+            // 2. if there is no saved container, a network container is loaded
+            // 3. the 2-second timeout occurs
+            PendingResult<ContainerHolder> pending = tagManager.loadContainerPreferNonDefault(id, R.raw.gtm_klq6c4);
+            pending.setResultCallback(new ResultCallback<ContainerHolder>() {
+                @Override
+                public void onResult(@NonNull ContainerHolder containerHolder) {
+                    ContainerHolderSingleton.add(containerHolder);
+                    handleLoadContainerResult(containerHolder);
+                }
+            }, TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS, TimeUnit.MILLISECONDS);
+
+
+            if (BuildConfig.DEBUG) {
+                tagManager.setVerboseLoggingEnabled(true);
             }
-        }, TIMEOUT_FOR_CONTAINER_OPEN_MILLISECONDS, TimeUnit.MILLISECONDS);
+        } else {
+            c.refresh();
+        }
     }
 
     private void handleLoadContainerResult(@NonNull ContainerHolder containerHolder) {
 
         if (!containerHolder.getStatus().isSuccess()) {
             Log.e(ShowerApp.TAG, "GTM failure loading container");
+        }
+
+        Container container = containerHolder.getContainer();
+
+        if (container != null) {
+            if (BuildConfig.DEBUG) {
+                Log.d(ShowerApp.TAG, "GTM Container ID = " + container.getContainerId()
+                        + " is default = " + container.isDefault());
+            }
         }
 
         initialized = true;
@@ -127,5 +150,9 @@ public class GTMLogger implements Logger {
                 EVENT_ACTION_VAR, event.getAction(),
                 EVENT_LABEL_VAR, event.getLabel(),
                 EVENT_SCREEN_NAME_VAR, event.getScreenName()));
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

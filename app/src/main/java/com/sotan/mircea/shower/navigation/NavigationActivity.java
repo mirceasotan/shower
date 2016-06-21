@@ -9,18 +9,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.mircea.sotan.model.SimpleAlbum;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
+import com.sotan.mircea.shower.albumdetail.AlbumDetailFragment;
 import com.sotan.mircea.shower.logger.GAEvent;
+import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
+import com.sotan.mircea.shower.albumdetail.AlbumClickCallback;
 import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
-import com.sotan.mircea.shower.presenter.contracts.NavigationActivityView;
 import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;
@@ -33,7 +35,7 @@ import butterknife.ButterKnife;
  * Created by mircea
  */
 public class NavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        NavigationActivityView {
+        NavigationActivityView, AlbumClickCallback {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
@@ -59,8 +61,19 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
 
         if (savedInstanceState == null) {
             replaceFragment(NewReleasesFragment.newInstance(),
-                    R.id.navigation_activity_fragment_container, true);
+                    R.id.navigation_activity_fragment_container, false);
         }
+
+        ((GTMLogger) logger).setId("KLP-8989");
+        logger.init();
+        ((GTMLogger) logger).setId("GTM-KLQ6C4");
+        logger.init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        logger.log(new GAEvent("Home Screen"));
     }
 
     @Override
@@ -101,13 +114,11 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-
-
-
-
-        return super.onCreateOptionsMenu(menu);
+    public void onAlbumClicked(SimpleAlbum simpleAlbum) {
+        Bundle b = new Bundle();
+        b.putString(AlbumDetailFragment.ALBUM_KEY, simpleAlbum.toJson());
+        Intent i = new Intent(this, AlbumDetailActivity.class);
+        i.putExtras(b);
+        startActivity(i);
     }
 }

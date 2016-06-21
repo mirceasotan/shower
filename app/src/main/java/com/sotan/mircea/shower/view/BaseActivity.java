@@ -9,18 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by mircea
  */
-public  class BaseActivity extends AppCompatActivity {
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
+public class BaseActivity extends AppCompatActivity {
 
     protected void replaceFragment(@NonNull Fragment fragment, @IdRes int containerId) {
         replaceFragment(fragment, containerId, false);
     }
 
-    protected void replaceFragment(@NonNull Fragment fragment, @IdRes int containerId, boolean addToBackStack) {
+    protected void replaceFragment(@NonNull Fragment fragment, @IdRes int containerId,
+                                   boolean addToBackStack) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerId, fragment);
 

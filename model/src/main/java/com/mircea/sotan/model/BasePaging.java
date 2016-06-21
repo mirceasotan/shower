@@ -15,7 +15,9 @@ public class BasePaging<T> extends GsonObject {
     @SerializedName("limit")
     private int limit;
     @SerializedName("next")
-    private int next;
+    private String next;
+    @SerializedName("previous")
+    private String previous;
     @SerializedName("total")
     private int total;
 
@@ -43,11 +45,11 @@ public class BasePaging<T> extends GsonObject {
         this.limit = limit;
     }
 
-    public int getNext() {
+    public String getNext() {
         return next;
     }
 
-    public void setNext(int next) {
+    public void setNext(String next) {
         this.next = next;
     }
 
