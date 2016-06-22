@@ -13,11 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -53,8 +52,6 @@ public class GetNewReleasesUseCaseTest {
     @Test
     public void test_getNewReleases_success_nullDataListener() {
         getNewReleasesUseCase.getNewReleases(null, offset, limit);
-        verify(browseRestApiMock)
-                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
         verify(browseRestApiMock, times(1))
                 .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(newReleases, 200));
@@ -64,8 +61,6 @@ public class GetNewReleasesUseCaseTest {
     @Test
     public void test_getNewReleases_success_nonNullDataListener() {
         getNewReleasesUseCase.getNewReleases(dataListenerMock, offset, limit);
-        verify(browseRestApiMock)
-                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
         verify(browseRestApiMock, times(1))
                 .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(newReleases, 200));
@@ -75,8 +70,6 @@ public class GetNewReleasesUseCaseTest {
     @Test
     public void test_getNewReleases_error_nullDataListener() {
         getNewReleasesUseCase.getNewReleases(null, offset, limit);
-        verify(browseRestApiMock)
-                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
         verify(browseRestApiMock, times(1))
                 .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onError(networkError);
@@ -86,8 +79,6 @@ public class GetNewReleasesUseCaseTest {
     @Test
     public void test_getNewReleases_error_nonNullDataListener() {
         getNewReleasesUseCase.getNewReleases(dataListenerMock, offset, limit);
-        verify(browseRestApiMock)
-                .getNewReleasesAsync(Matchers.<Listener<NewReleases>>any(), eq(offset), eq(limit));
         verify(browseRestApiMock, times(1))
                 .getNewReleasesAsync(argumentCaptor.capture(), eq(offset), eq(limit));
         argumentCaptor.getValue().onError(networkError);

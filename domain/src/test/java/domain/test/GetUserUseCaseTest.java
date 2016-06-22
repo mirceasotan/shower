@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -46,10 +45,9 @@ public class GetUserUseCaseTest {
     }
 
     @Test
-    public void test_getNewReleases_success_nullDataListener() {
+    public void test_getUser_success_nullDataListener() {
         useCase.getUser(null);
 
-        verify(userRestApi).getCurrentUserAsync(Matchers.<Listener<PublicUser>>any());
         verify(userRestApi, times(1)).getCurrentUserAsync(argumentCaptor.capture());
 
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(user, 200));
@@ -58,10 +56,9 @@ public class GetUserUseCaseTest {
     }
 
     @Test
-    public void test_getNewReleases_success_nonNullDataListener() {
+    public void test_getUser_success_nonNullDataListener() {
         useCase.getUser(dataListenerMock);
 
-        verify(userRestApi).getCurrentUserAsync(Matchers.<Listener<PublicUser>>any());
         verify(userRestApi, times(1)).getCurrentUserAsync(argumentCaptor.capture());
 
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(user, 200));
@@ -70,10 +67,9 @@ public class GetUserUseCaseTest {
     }
 
     @Test
-    public void test_getNewReleases_error_nullDataListener() {
+    public void test_getUser_error_nullDataListener() {
         useCase.getUser(null);
 
-        verify(userRestApi).getCurrentUserAsync(Matchers.<Listener<PublicUser>>any());
         verify(userRestApi, times(1)).getCurrentUserAsync(argumentCaptor.capture());
 
         argumentCaptor.getValue().onError(networkError);
@@ -82,10 +78,9 @@ public class GetUserUseCaseTest {
     }
 
     @Test
-    public void test_getNewReleases_error_nonNullDataListener() {
+    public void test_getUser_error_nonNullDataListener() {
         useCase.getUser(dataListenerMock);
 
-        verify(userRestApi).getCurrentUserAsync(Matchers.<Listener<PublicUser>>any());
         verify(userRestApi, times(1)).getCurrentUserAsync(argumentCaptor.capture());
 
         argumentCaptor.getValue().onError(networkError);
