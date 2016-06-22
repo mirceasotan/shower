@@ -19,4 +19,7 @@
     //New Releases
     <string name="tile_title_textView_ct">Title</string>
 
+    //Toolbar
+    <string name="album_detail">Album Detail</string>
+
 </resources>

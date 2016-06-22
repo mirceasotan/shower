@@ -12,7 +12,7 @@ public class FullAlbum extends SimpleAlbum {
     @SerializedName("copyrights")
     private List<Copyright> copyrights;
     @SerializedName("external_ids")
-    private Map<String, Integer> externalIds;
+    private Map<String, String> externalIds;
     @SerializedName("popularity")
     private int popularity;
     @SerializedName("release_date")
@@ -20,7 +20,7 @@ public class FullAlbum extends SimpleAlbum {
     @SerializedName("release_date_precision")
     private String releaseDatePrecision;
     @SerializedName("tracks")
-    private List<Paging<TrackLink>> tracks;
+    private BasePaging<SimpleTrack> tracks;
 
     public List<Copyright> getCopyrights() {
         return copyrights;
@@ -30,11 +30,11 @@ public class FullAlbum extends SimpleAlbum {
         this.copyrights = copyrights;
     }
 
-    public Map<String, Integer> getExternalIds() {
+    public Map<String, String> getExternalIds() {
         return externalIds;
     }
 
-    public void setExternalIds(Map<String, Integer> externalIds) {
+    public void setExternalIds(Map<String, String> externalIds) {
         this.externalIds = externalIds;
     }
 
@@ -62,11 +62,11 @@ public class FullAlbum extends SimpleAlbum {
         this.releaseDatePrecision = releaseDatePrecision;
     }
 
-    public List<Paging<TrackLink>> getTracks() {
+    public BasePaging<SimpleTrack> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Paging<TrackLink>> tracks) {
+    public void setTracks(BasePaging<SimpleTrack> tracks) {
         this.tracks = tracks;
     }
 }

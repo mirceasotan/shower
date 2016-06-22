@@ -1,6 +1,7 @@
 package com.sotan.mircea.shower.modules;
 
 import com.sotan.mircea.shower.ShowerApp;
+import com.sotan.mircea.shower.albumdetail.view.AlbumDetailActivity;
 import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.me.MyAccountFragment;
 import com.sotan.mircea.shower.navigation.NavigationActivity;
@@ -30,4 +31,5 @@ public interface ApplicationComponent {
     void inject(NewReleasesFragment newReleasesFragment);
 
 
+    void inject(AlbumDetailActivity albumDetailActivity);
 }

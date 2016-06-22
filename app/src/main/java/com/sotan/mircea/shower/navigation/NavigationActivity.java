@@ -15,13 +15,11 @@ import android.widget.Toast;
 import com.mircea.sotan.model.SimpleAlbum;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
-import com.sotan.mircea.shower.albumdetail.AlbumDetailFragment;
+import com.sotan.mircea.shower.albumdetail.view.AlbumDetailActivity;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
-import com.sotan.mircea.shower.albumdetail.AlbumClickCallback;
 import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
 import com.sotan.mircea.shower.view.BaseActivity;
 
@@ -35,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by mircea
  */
 public class NavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        NavigationActivityView, AlbumClickCallback {
+        NavigationActivityView, NewReleasesFragment.NewReleasesUIDelegate {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
@@ -114,9 +112,9 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
     }
 
     @Override
-    public void onAlbumClicked(SimpleAlbum simpleAlbum) {
+    public void onNewReleaseClicked(SimpleAlbum simpleAlbum) {
         Bundle b = new Bundle();
-        b.putString(AlbumDetailFragment.ALBUM_KEY, simpleAlbum.toJson());
+        b.putString(AlbumDetailActivity.ALBUM_ID_KEY, simpleAlbum.getId());
         Intent i = new Intent(this, AlbumDetailActivity.class);
         i.putExtras(b);
         startActivity(i);

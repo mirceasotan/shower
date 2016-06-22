@@ -2,11 +2,12 @@ package com.sotan.mircea.shower.modules;
 
 import android.content.Context;
 
+import com.mircea.sotan.domain.GetAlbumDetailsUseCase;
 import com.mircea.sotan.domain.GetNewReleasesUseCase;
-import com.mircea.sotan.domain.GetNewReleasesUseCaseImpl;
 import com.mircea.sotan.domain.GetUserUseCase;
-import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.sotan.mircea.shower.ConfigurationManager;
+import com.sotan.mircea.shower.albumdetail.presenter.AlbumDetailPresenter;
+import com.sotan.mircea.shower.albumdetail.presenter.AlbumDetailPresenterImpl;
 import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountFragmentPresenter;
@@ -50,14 +51,15 @@ public class ApplicationModule {
     }
 
     @Provides
-    public GetNewReleasesUseCase providesGetNewReleaseUseCase(BrowseRestApi restApi) {
-        return new GetNewReleasesUseCaseImpl(restApi);
+    public AlbumDetailPresenter provideAlbumDetailsPresenter(GetAlbumDetailsUseCase useCase) {
+        return new AlbumDetailPresenterImpl(useCase);
     }
+
 
     @Singleton
     @Provides
     @Named("GTMLogger")
     public Logger provideLogger(Context context) {
-        return new GTMLogger(context,"GTM-KLQ6C4");
+        return new GTMLogger(context, "GTM-KLQ6C4");
     }
 }

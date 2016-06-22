@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.mircea.sotan.repository.apis.AlbumsRestApi;
+import com.mircea.sotan.repository.apis.AlbumsRestApiImpl;
 import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.mircea.sotan.repository.apis.BrowseRestApiImpl;
 import com.mircea.sotan.repository.apis.UserRestApi;
@@ -45,6 +47,12 @@ public class NetworkingModule {
     public BrowseRestApi provideRetrofitBrowseRestApi(@NonNull Retrofit retrofit,
                                                       com.mircea.sotan.repository.networking.Log log) {
         return new BrowseRestApiImpl(retrofit, log);
+    }
+
+    @Provides
+    public AlbumsRestApi provideRetrofitAlbumsRestApi(@NonNull Retrofit retrofit,
+                                                      com.mircea.sotan.repository.networking.Log log) {
+        return new AlbumsRestApiImpl(retrofit, log);
     }
 
     @Singleton
@@ -91,7 +99,7 @@ public class NetworkingModule {
     }
 
     @Provides
-    com.mircea.sotan.repository.networking.Log provideLog(){
+    com.mircea.sotan.repository.networking.Log provideLog() {
         return new AppLog();
     }
 

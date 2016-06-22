@@ -18,7 +18,6 @@ import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
 import com.sotan.mircea.shower.misc.RecyclerViewScrollListener;
 import com.sotan.mircea.shower.misc.ScrollEndListener;
 import com.sotan.mircea.shower.misc.VerticalSpaceItemDecoration;
-import com.sotan.mircea.shower.albumdetail.AlbumClickCallback;
 import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
 import com.sotan.mircea.shower.presenter.Presenter;
 import com.sotan.mircea.shower.view.BaseFragment;
@@ -43,7 +42,11 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
     RecyclerView recyclerView;
     private NewReleasesAdapter newReleasesAdapter;
     private RecyclerViewScrollListener scrollListener;
-    private AlbumClickCallback albumClickCallback;
+    private NewReleasesUIDelegate albumClickCallback;
+
+    public interface NewReleasesUIDelegate {
+        void onNewReleaseClicked(SimpleAlbum simpleAlbum);
+    }
 
     public static NewReleasesFragment newInstance() {
         return new NewReleasesFragment();
@@ -61,10 +64,10 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            albumClickCallback = (AlbumClickCallback) activity;
+            albumClickCallback = (NewReleasesUIDelegate) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement AlbumClickCallback");
+                    + " must implement NewReleasesUIDelegate");
         }
     }
 
@@ -154,7 +157,7 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
 
     @Override
     public void onItemClick(SimpleAlbum simpleAlbum) {
-        albumClickCallback.onAlbumClicked(simpleAlbum);
+        albumClickCallback.onNewReleaseClicked(simpleAlbum);
     }
 
     private void initRecyclerView(final GridLayoutManager layoutManager) {
