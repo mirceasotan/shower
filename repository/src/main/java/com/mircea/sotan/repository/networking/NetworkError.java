@@ -6,20 +6,20 @@ import android.support.annotation.Nullable;
  *
  */
 public class NetworkError {
-    private int httpCode = -1;
-    private String code;
+    private int httpCode;
+    private String codeDescription;
 
     public NetworkError(int httpCode, @Nullable String code) {
         this.httpCode = httpCode;
-        this.code = code;
+        this.codeDescription = code;
     }
 
     public int getHttpCode() {
         return httpCode;
     }
 
-    public String getCode() {
-        return code;
+    public String getCodeDescription() {
+        return codeDescription;
     }
 
     @Override
@@ -27,8 +27,8 @@ public class NetworkError {
         StringBuilder builder = new StringBuilder();
         builder.append(httpCode);
 
-        if (code != null) {
-            builder.append(code);
+        if (codeDescription != null) {
+            builder.append(" : ").append(codeDescription);
         }
 
         return builder.toString();

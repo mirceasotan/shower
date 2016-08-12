@@ -49,3 +49,6 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:2.0.1"
 }
 
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+

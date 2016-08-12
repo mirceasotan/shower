@@ -5,13 +5,15 @@ import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.Category;
 import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.repository.networking.*;
+import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.RequestLog;
+import com.mircea.sotan.repository.networking.RestApi;
+import com.mircea.sotan.repository.networking.TokenStorage;
 import com.mircea.sotan.repository.services.BrowseService;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 
 /**
  * @author mirceasotan
@@ -20,14 +22,14 @@ public class BrowseRestApiImpl extends RestApi implements BrowseRestApi {
 
     private final BrowseService browseService;
 
-    public BrowseRestApiImpl(@NonNull Retrofit retrofit, Log log) {
-        super(log);
-        browseService = retrofit.create(BrowseService.class);
+    public BrowseRestApiImpl(@NonNull BrowseService service, RequestLog requestLog, TokenStorage tokenStorage) {
+        super(requestLog, tokenStorage);
+        browseService = service;
     }
 
     @Override
     public void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit) {
-        Call<NewReleases> call = browseService.getNewReleases(offset, limit);
+        Call<NewReleases> call = browseService.getNewReleases(offset, limit,tokenStorage.getAuthToken());
         enqueueAsync(call, listener);
     }
 

@@ -32,7 +32,6 @@ public class ShowerApp extends Application {
         super.onCreate();
         initDagger();
         getInjector().inject(this);
-        logger.init();
     }
 
     /**

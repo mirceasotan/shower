@@ -2,11 +2,13 @@ package com.mircea.sotan.repository.services;
 
 import com.mircea.sotan.model.Category;
 import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.repository.networking.HttpHeader;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -20,7 +22,8 @@ public interface BrowseService {
      * @return New Releases API call
      */
     @GET("/v1/browse/new-releases")
-    Call<NewReleases> getNewReleases(@Query("offset") int offset, @Query("limit") int limit);
+    Call<NewReleases> getNewReleases(@Query("offset") int offset, @Query("limit") int limit,
+                                     @Header(HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get a list of categories used to tag items in Spotify (on, for example,

@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 /**
  * @author mirceasotan
  */
-public interface Log {
+public interface RequestLog {
 
     boolean isLoggingEnabled();
 

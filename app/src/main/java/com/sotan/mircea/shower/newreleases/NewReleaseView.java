@@ -1,8 +1,10 @@
-package com.sotan.mircea.shower.newreleases.view;
+package com.sotan.mircea.shower.newreleases;
 
 import android.support.annotation.NonNull;
 
-import com.mircea.sotan.model.NewReleases;
+import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+
+import java.util.List;
 
 /**
  * @author mirceasotan
@@ -11,7 +13,7 @@ public interface NewReleaseView {
     /**
      * @param newReleases
      */
-    void showNewReleases(@NonNull NewReleases newReleases);
+    void showNewReleases(@NonNull List<SimpleAlbumViewModel> simpleAlbumViewModels);
 
     /**
      *

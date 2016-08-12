@@ -1,8 +1,7 @@
-package com.sotan.mircea.shower.albumdetail.presenter;
+package com.sotan.mircea.shower.albumdetail;
 
 import android.support.annotation.NonNull;
 
-import com.sotan.mircea.shower.albumdetail.view.AlbumDetailView;
 import com.sotan.mircea.shower.presenter.Presenter;
 
 /**

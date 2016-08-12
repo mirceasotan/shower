@@ -2,7 +2,6 @@ package com.sotan.mircea.shower.modules;
 
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.mircea.sotan.repository.apis.AlbumsRestApi;
 import com.mircea.sotan.repository.apis.AlbumsRestApiImpl;
@@ -10,62 +9,67 @@ import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.mircea.sotan.repository.apis.BrowseRestApiImpl;
 import com.mircea.sotan.repository.apis.UserRestApi;
 import com.mircea.sotan.repository.apis.UserRestApiImpl;
-import com.sotan.mircea.shower.AppLog;
+import com.mircea.sotan.repository.networking.RequestLog;
+import com.mircea.sotan.repository.networking.TokenStorage;
+import com.mircea.sotan.repository.services.AlbumsService;
+import com.mircea.sotan.repository.services.BrowseService;
+import com.mircea.sotan.repository.services.UserService;
+import com.sotan.mircea.shower.AppRequestLog;
+import com.sotan.mircea.shower.AppTokenStorage;
 import com.sotan.mircea.shower.ConfigConstants;
 import com.sotan.mircea.shower.ConfigurationManager;
-import com.sotan.mircea.shower.ShowerApp;
-
-import java.io.IOException;
-import java.util.Set;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Headers;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by mircea
+ * @author mirceasotan
  */
 @Module
 public class NetworkingModule {
 
     @Provides
-    public UserRestApi provideRetrofitUserRestApi(@NonNull Retrofit retrofit,
-                                                  com.mircea.sotan.repository.networking.Log log) {
-        return new UserRestApiImpl(retrofit, log);
+    public UserRestApi provideRetrofitUserRestApi(@NonNull UserService service,
+                                                  @NonNull RequestLog log, TokenStorage storage) {
+        return new UserRestApiImpl(service, log, storage);
     }
 
     @Provides
-    public BrowseRestApi provideRetrofitBrowseRestApi(@NonNull Retrofit retrofit,
-                                                      com.mircea.sotan.repository.networking.Log log) {
-        return new BrowseRestApiImpl(retrofit, log);
+    public BrowseRestApi provideRetrofitBrowseRestApi(@NonNull BrowseService service,
+                                                      @NonNull RequestLog log, TokenStorage storage) {
+        return new BrowseRestApiImpl(service, log, storage);
     }
 
     @Provides
-    public AlbumsRestApi provideRetrofitAlbumsRestApi(@NonNull Retrofit retrofit,
-                                                      com.mircea.sotan.repository.networking.Log log) {
-        return new AlbumsRestApiImpl(retrofit, log);
+    public AlbumsRestApi provideRetrofitAlbumsRestApi(@NonNull AlbumsService service,
+                                                      @NonNull RequestLog requestLog, TokenStorage storage) {
+        return new AlbumsRestApiImpl(service, requestLog, storage);
     }
 
-    @Singleton
     @Provides
-    public OkHttpClient provideOKHttpClient(@Named("token") final SharedPreferences preferences) {
-        return new OkHttpClient.Builder()
-                .addInterceptor(
-                        new Interceptor() {
-                            @Override
-                            public Response intercept(Chain chain) throws IOException {
-                                return processRequest(chain, preferences);
-                            }
-                        }).build();
+    public AlbumsService provideAlbumsService(@NonNull Retrofit retrofit) {
+        return retrofit.create(AlbumsService.class);
+    }
+
+    @Provides
+    public BrowseService provideBrowseService(@NonNull Retrofit retrofit) {
+        return retrofit.create(BrowseService.class);
+    }
+
+    @Provides
+    public UserService provideUserService(@NonNull Retrofit retrofit) {
+        return retrofit.create(UserService.class);
+    }
+
+    @Provides
+    public OkHttpClient provideOKHttpClient() {
+        return new OkHttpClient.Builder().build();
     }
 
     @Singleton
@@ -79,28 +83,15 @@ public class NetworkingModule {
 
     }
 
-    private Response processRequest(Interceptor.Chain chain, @Named("token") SharedPreferences preferences)
-            throws IOException {
-        Request request = chain.request()
-                .newBuilder()
-                .addHeader("Authorization", "Bearer {token}".replace("{token}",
-                        preferences.getString("token", "")))
-                .build();
 
-        Headers headers = request.headers();
-        Set<String> names = headers.names();
-
-        for (String name : names) {
-            String value = headers.get(name);
-            Log.d(ShowerApp.TAG, name + " : " + value);
-        }
-
-        return chain.proceed(request);
+    @Provides
+    public RequestLog provideLog() {
+        return new AppRequestLog();
     }
 
     @Provides
-    com.mircea.sotan.repository.networking.Log provideLog() {
-        return new AppLog();
+    public TokenStorage provideTokenStorage(@Named("token") SharedPreferences preferences) {
+        return new AppTokenStorage(preferences);
     }
 
 }

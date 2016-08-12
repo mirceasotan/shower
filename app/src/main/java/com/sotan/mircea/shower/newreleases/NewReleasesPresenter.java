@@ -1,6 +1,5 @@
-package com.sotan.mircea.shower.newreleases.presenter;
+package com.sotan.mircea.shower.newreleases;
 
-import com.sotan.mircea.shower.newreleases.view.NewReleaseView;
 import com.sotan.mircea.shower.presenter.Presenter;
 
 /**

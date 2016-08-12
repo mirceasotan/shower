@@ -2,12 +2,12 @@ package com.sotan.mircea.shower;
 
 import android.support.annotation.NonNull;
 
-import com.mircea.sotan.repository.networking.Log;
+import com.mircea.sotan.repository.networking.RequestLog;
 
 /**
  * @author mirceasotan
  */
-public class AppLog implements Log {
+public class AppRequestLog implements RequestLog {
     @Override
     public boolean isLoggingEnabled() {
         return BuildConfig.DEBUG;

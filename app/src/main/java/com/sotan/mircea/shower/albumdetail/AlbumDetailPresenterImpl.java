@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.albumdetail.presenter;
+package com.sotan.mircea.shower.albumdetail;
 
 import android.support.annotation.NonNull;
 
@@ -6,8 +6,8 @@ import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
 import com.mircea.sotan.repository.networking.NetworkError;
-import com.sotan.mircea.shower.albumdetail.view.AlbumDetailView;
 import com.sotan.mircea.shower.presenter.PresenterImpl;
+import com.sotan.mircea.shower.viewModel.FullAlbumViewModel;
 
 import javax.inject.Inject;
 
@@ -29,7 +29,7 @@ public class AlbumDetailPresenterImpl extends PresenterImpl<AlbumDetailView> imp
             @Override
             public void onResponse(FullAlbum data) {
                 if (getView() != null) {
-                    getView().showAlbum(data);
+                    getView().showAlbum(new FullAlbumViewModel(data));
                 }
             }
 

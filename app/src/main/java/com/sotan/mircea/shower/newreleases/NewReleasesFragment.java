@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.newreleases.view;
+package com.sotan.mircea.shower.newreleases;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,21 +6,23 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.model.SimpleAlbum;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
 import com.sotan.mircea.shower.misc.RecyclerViewScrollListener;
 import com.sotan.mircea.shower.misc.ScrollEndListener;
 import com.sotan.mircea.shower.misc.VerticalSpaceItemDecoration;
-import com.sotan.mircea.shower.newreleases.presenter.NewReleasesPresenter;
 import com.sotan.mircea.shower.presenter.Presenter;
 import com.sotan.mircea.shower.view.BaseFragment;
+import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,8 +46,13 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
     private RecyclerViewScrollListener scrollListener;
     private NewReleasesUIDelegate albumClickCallback;
 
+    @Override
+    public void onItemClick(SimpleAlbumViewModel simpleAlbum, View v) {
+        albumClickCallback.onNewReleaseClicked(simpleAlbum, v);
+    }
+
     public interface NewReleasesUIDelegate {
-        void onNewReleaseClicked(SimpleAlbum simpleAlbum);
+        void onNewReleaseClicked(SimpleAlbumViewModel simpleAlbum, View v);
     }
 
     public static NewReleasesFragment newInstance() {
@@ -132,16 +139,17 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
     }
 
     @Override
-    public void showNewReleases(@NonNull NewReleases newReleases) {
+    public void showNewReleases(@NonNull List<SimpleAlbumViewModel> simpleAlbumViewModels) {
         scrollListener.setLoading(true);
         if (newReleasesAdapter == null) {
-            newReleasesAdapter = new NewReleasesAdapter(newReleases.getSimpleAlbums().getItems(),
+            newReleasesAdapter = new NewReleasesAdapter(simpleAlbumViewModels,
                     getContext(), this);
             newReleasesAdapter.setHasStableIds(true);
             recyclerView.setAdapter(newReleasesAdapter);
         } else {
-            newReleasesAdapter.getAlbumList().addAll(newReleases.getSimpleAlbums().getItems());
+            newReleasesAdapter.getAlbumList().addAll(simpleAlbumViewModels);
             newReleasesAdapter.notifyDataSetChanged();
+            Log.d("msg","data set");
         }
     }
 
@@ -155,11 +163,6 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
 
     }
 
-    @Override
-    public void onItemClick(SimpleAlbum simpleAlbum) {
-        albumClickCallback.onNewReleaseClicked(simpleAlbum);
-    }
-
     private void initRecyclerView(final GridLayoutManager layoutManager) {
         int valueInPixels = (int) getResources().getDimension(R.dimen.space4);
         // use this setting to improve performance if you know that changes
@@ -169,11 +172,15 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
         recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(valueInPixels));
         scrollListener = new RecyclerViewScrollListener(layoutManager, this);
         recyclerView.addOnScrollListener(scrollListener);
+        RecyclerView.ItemAnimator animator = recyclerView.getItemAnimator();
+        if (animator instanceof SimpleItemAnimator) {
+            ((SimpleItemAnimator) animator).setSupportsChangeAnimations(false);
+        }
+        recyclerView.getItemAnimator().setChangeDuration(0);
     }
 
     @NonNull
     private GridLayoutManager createGridLayoutManager() {
-        // use a grid layout manager
         final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), SPAN_2,
                 GridLayoutManager.VERTICAL, false);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

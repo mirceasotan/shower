@@ -70,12 +70,11 @@ public class SplashActivity extends Activity {
         // Check if result comes from the correct activity
         if (requestCode == ActivityConstants.SPOTIFY_LOGIN_REQ_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
-
             switch (response.getType()) {
                 // ResponseContainer was successful and contains auth token
                 case TOKEN:
                     // Handle successful response
-                    tokenPreferences.edit().putString("token", response.getAccessToken()).apply();
+                    tokenPreferences.edit().putString("token", "Bearer " + response.getAccessToken()).apply();
                     startActivity(new Intent(this, NavigationActivity.class));
                     finish();
                     break;

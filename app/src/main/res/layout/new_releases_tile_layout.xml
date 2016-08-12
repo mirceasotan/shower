@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-    <com.sotan.mircea.shower.widget.SquareImageView
+    <com.sotan.mircea.shower.widget.GradientSquareImageView
         android:id="@+id/tile_imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:contentDescription="@string/tile_title_textView_ct" />
+        android:contentDescription="@string/tile_title_textView_ct"
+        tools:targetApi="lollipop" />
 
     <TextView
         android:id="@+id/tile_titleTextView"

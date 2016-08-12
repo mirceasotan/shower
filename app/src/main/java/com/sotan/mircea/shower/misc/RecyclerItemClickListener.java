@@ -1,10 +1,12 @@
 package com.sotan.mircea.shower.misc;
 
-import com.mircea.sotan.model.SimpleAlbum;
+import android.view.View;
+
+import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
 
 /**
  * @author mirceasotan
  */
 public interface RecyclerItemClickListener {
-    void onItemClick(SimpleAlbum simpleAlbum);
+    void onItemClick(SimpleAlbumViewModel simpleAlbum, View v);
 }

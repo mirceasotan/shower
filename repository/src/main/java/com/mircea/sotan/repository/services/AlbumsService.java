@@ -1,9 +1,11 @@
 package com.mircea.sotan.repository.services;
 
 import com.mircea.sotan.model.FullAlbum;
+import com.mircea.sotan.repository.networking.HttpHeader;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 /**
@@ -17,5 +19,6 @@ public interface AlbumsService {
      * @return Album Detail Call
      */
     @GET("v1/albums/{id}")
-    Call<FullAlbum> getAlbumDetail(@Path("id") String id);
+    Call<FullAlbum> getAlbumDetail(@Path("id") String id,
+                                   @Header(HttpHeader.AUTHORIZATION) String authorization);
 }

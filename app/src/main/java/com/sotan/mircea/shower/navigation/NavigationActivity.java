@@ -5,22 +5,25 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
-import com.mircea.sotan.model.SimpleAlbum;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.albumdetail.view.AlbumDetailActivity;
+import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
 import com.sotan.mircea.shower.logger.GAEvent;
-import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
-import com.sotan.mircea.shower.newreleases.view.NewReleasesFragment;
+import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.newreleases.NewReleasesFragment;
 import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;
@@ -61,11 +64,6 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
             replaceFragment(NewReleasesFragment.newInstance(),
                     R.id.navigation_activity_fragment_container, false);
         }
-
-        ((GTMLogger) logger).setId("KLP-8989");
-        logger.init();
-        ((GTMLogger) logger).setId("GTM-KLQ6C4");
-        logger.init();
     }
 
     @Override
@@ -111,12 +109,18 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     @Override
-    public void onNewReleaseClicked(SimpleAlbum simpleAlbum) {
+    public void onNewReleaseClicked(SimpleAlbumViewModel simpleAlbum, View v) {
         Bundle b = new Bundle();
-        b.putString(AlbumDetailActivity.ALBUM_ID_KEY, simpleAlbum.getId());
+        b.putString(AlbumDetailActivity.ALBUM_KEY, simpleAlbum.toJson());
         Intent i = new Intent(this, AlbumDetailActivity.class);
         i.putExtras(b);
-        startActivity(i);
+
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                new Pair<>(v.findViewById(R.id.tile_imageView), AlbumDetailActivity.VIEW_NAME_HEADER_IMAGE),
+        new Pair<>(v.findViewById(R.id.tile_titleTextView), AlbumDetailActivity.VIEW_NAME_HEADER_IMAGE2));
+        ActivityCompat.startActivity(this, i, activityOptions.toBundle());
     }
 }

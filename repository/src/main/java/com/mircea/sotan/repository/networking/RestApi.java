@@ -18,10 +18,12 @@ public class RestApi {
     public static final int DEFAULT_HTTP_CONNECTION_ERROR_CODE = -1;
     public static final String NO_INTERNET_CONNECTION_MESSAGE = "No Internet Connection";
     public final Set<Call<?>> waitingCalls = new HashSet<>();
-    private final Log log;
+    private final RequestLog requestLog;
+    protected final TokenStorage tokenStorage;
 
-    public RestApi(@NonNull Log log) {
-        this.log = log;
+    public RestApi(@NonNull RequestLog requestLog, TokenStorage tokenStorage) {
+        this.requestLog = requestLog;
+        this.tokenStorage = tokenStorage;
     }
 
     /**
@@ -29,8 +31,8 @@ public class RestApi {
      * @param listener callback for notifying observers that call finished with a resolution
      */
     public <T> void enqueueAsync(@NonNull Call<T> call, @Nullable final Listener<T> listener) {
-        if (log.isLoggingEnabled()) {
-            log.log(call.request().url().toString());
+        if (requestLog.isLoggingEnabled()) {
+            requestLog.log(call.request().url().toString());
         }
 
         call.enqueue(new Callback<T>() {
@@ -71,8 +73,8 @@ public class RestApi {
             }
         }
 
-        if (log.isLoggingEnabled()) {
-            log.log(error.toString());
+        if (requestLog.isLoggingEnabled()) {
+            requestLog.log(error.toString());
         }
     }
 
@@ -80,8 +82,8 @@ public class RestApi {
         ResponseContainer<T> responseContainer = new ResponseContainer<>(response.body(),
                 response.code());
 
-        if (log.isLoggingEnabled()) {
-            log.log("Response : " + response.code());
+        if (requestLog.isLoggingEnabled()) {
+            requestLog.log("Response : " + response.code());
         }
 
         if (listener != null) {
@@ -105,7 +107,7 @@ public class RestApi {
         }
     }
 
-    private void handleUnauthorizedResponse(@NonNull Call call) {
+    private <T> void handleUnauthorizedResponse(@NonNull Call<T> call) {
         waitingCalls.add(call);
     }
 }

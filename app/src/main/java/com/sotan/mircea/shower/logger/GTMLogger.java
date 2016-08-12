@@ -12,7 +12,6 @@ import com.google.android.gms.tagmanager.ContainerHolder;
 import com.google.android.gms.tagmanager.DataLayer;
 import com.google.android.gms.tagmanager.TagManager;
 import com.sotan.mircea.shower.BuildConfig;
-import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 
 import java.util.concurrent.TimeUnit;
@@ -61,7 +60,7 @@ public class GTMLogger implements Logger {
             // 1. a saved container is loaded
             // 2. if there is no saved container, a network container is loaded
             // 3. the 2-second timeout occurs
-            PendingResult<ContainerHolder> pending = tagManager.loadContainerPreferNonDefault(id, R.raw.gtm_klq6c4);
+            PendingResult<ContainerHolder> pending = tagManager.loadContainerPreferNonDefault(id, -1);
             pending.setResultCallback(new ResultCallback<ContainerHolder>() {
                 @Override
                 public void onResult(@NonNull ContainerHolder containerHolder) {
