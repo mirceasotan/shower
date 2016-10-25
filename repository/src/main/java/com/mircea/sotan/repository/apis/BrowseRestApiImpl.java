@@ -14,6 +14,7 @@ import com.mircea.sotan.repository.services.BrowseService;
 import java.util.List;
 
 import retrofit2.Call;
+import rx.Observable;
 
 /**
  * @author mirceasotan
@@ -22,15 +23,24 @@ public class BrowseRestApiImpl extends RestApi implements BrowseRestApi {
 
     private final BrowseService browseService;
 
-    public BrowseRestApiImpl(@NonNull BrowseService service, RequestLog requestLog, TokenStorage tokenStorage) {
+    public BrowseRestApiImpl(@NonNull BrowseService service, @NonNull RequestLog requestLog,
+                             @NonNull TokenStorage tokenStorage) {
         super(requestLog, tokenStorage);
         browseService = service;
     }
 
     @Override
     public void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit) {
-        Call<NewReleases> call = browseService.getNewReleases(offset, limit,tokenStorage.getAuthToken());
+        Call<NewReleases> call = browseService.getNewReleases(offset, limit, tokenStorage.getAuthToken());
         enqueueAsync(call, listener);
+    }
+
+    @Override
+    public Observable<NewReleases> getRxNewReleasesAsync(int offset, int limit) {
+        Observable<NewReleases> newReleasesObservable = browseService.getRxNewReleases(offset, limit,
+                tokenStorage.getAuthToken());
+        enqueueRxAsync(newReleasesObservable);
+        return newReleasesObservable;
     }
 
     @Override

@@ -30,9 +30,7 @@ public class ResponseContainer<T> {
 
         ResponseContainer<?> that = (ResponseContainer<?>) o;
 
-        if (httpCode != that.httpCode) return false;
-        return data != null ? data.equals(that.data) : that.data == null;
-
+        return httpCode == that.httpCode && (data != null ? data.equals(that.data) : that.data == null);
     }
 
     @Override

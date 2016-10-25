@@ -23,7 +23,7 @@ import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
-import com.sotan.mircea.shower.newreleases.NewReleasesFragment;
+import com.sotan.mircea.shower.browse.NewReleasesFragment;
 import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;

@@ -1,7 +1,7 @@
 package domain.test;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetUserUseCaseImpl;
+import com.mircea.sotan.domain.profiles.GetUserUseCaseImpl;
 import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.apis.UserRestApi;
 import com.mircea.sotan.repository.networking.Listener;

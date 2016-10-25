@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.newreleases;
+package com.sotan.mircea.shower.browse;
 
 import com.sotan.mircea.shower.presenter.Presenter;
 

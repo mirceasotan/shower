@@ -1,8 +1,8 @@
 package domain.test;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetAlbumDetailUseCaseImpl;
-import com.mircea.sotan.domain.GetAlbumDetailsUseCase;
+import com.mircea.sotan.domain.albums.GetAlbumDetailUseCaseImpl;
+import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
 import com.mircea.sotan.repository.apis.AlbumsRestApi;
 import com.mircea.sotan.repository.networking.Listener;

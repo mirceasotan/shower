@@ -5,7 +5,7 @@ import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
 import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.me.MyAccountFragment;
 import com.sotan.mircea.shower.navigation.NavigationActivity;
-import com.sotan.mircea.shower.newreleases.NewReleasesFragment;
+import com.sotan.mircea.shower.browse.NewReleasesFragment;
 import com.sotan.mircea.shower.view.SplashActivity;
 
 import javax.inject.Singleton;

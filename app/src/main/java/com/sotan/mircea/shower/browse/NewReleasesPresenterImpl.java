@@ -1,9 +1,9 @@
-package com.sotan.mircea.shower.newreleases;
+package com.sotan.mircea.shower.browse;
 
 import android.support.annotation.NonNull;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetNewReleasesUseCase;
+import com.mircea.sotan.domain.browse.GetNewReleasesUseCase;
 import com.mircea.sotan.model.BasePaging;
 import com.mircea.sotan.model.NewReleases;
 import com.mircea.sotan.model.SimpleAlbum;
@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import rx.functions.Action0;
+import rx.functions.Action1;
 
 /**
  * @author mirceasotan
@@ -59,5 +62,21 @@ public class NewReleasesPresenterImpl extends PresenterImpl<NewReleaseView>
                 }
             }
         }, offset, limit);
+    }
+
+    public void getRxReleases() {
+        newReleasesUseCase.getRxNewReleases(offset, limit).subscribe(new Action1<NewReleases>() {
+            @Override public void call(NewReleases newReleases) {
+
+            }
+        }, new Action1<Throwable>() {
+            @Override public void call(Throwable throwable) {
+
+            }
+        }, new Action0() {
+            @Override public void call() {
+
+            }
+        });
     }
 }

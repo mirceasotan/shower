@@ -2,9 +2,9 @@ package com.sotan.mircea.shower.modules;
 
 import android.content.Context;
 
-import com.mircea.sotan.domain.GetAlbumDetailsUseCase;
-import com.mircea.sotan.domain.GetNewReleasesUseCase;
-import com.mircea.sotan.domain.GetUserUseCase;
+import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
+import com.mircea.sotan.domain.browse.GetNewReleasesUseCase;
+import com.mircea.sotan.domain.profiles.GetUserUseCase;
 import com.sotan.mircea.shower.ConfigurationManager;
 import com.sotan.mircea.shower.albumdetail.AlbumDetailPresenter;
 import com.sotan.mircea.shower.albumdetail.AlbumDetailPresenterImpl;
@@ -14,8 +14,8 @@ import com.sotan.mircea.shower.me.MyAccountFragmentPresenter;
 import com.sotan.mircea.shower.me.MyAccountFragmentPresenterImpl;
 import com.sotan.mircea.shower.navigation.NavigationActivityPresenter;
 import com.sotan.mircea.shower.navigation.NavigationActivityPresenterImpl;
-import com.sotan.mircea.shower.newreleases.NewReleasesPresenter;
-import com.sotan.mircea.shower.newreleases.NewReleasesPresenterImpl;
+import com.sotan.mircea.shower.browse.NewReleasesPresenter;
+import com.sotan.mircea.shower.browse.NewReleasesPresenterImpl;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

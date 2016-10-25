@@ -11,6 +11,6 @@ import retrofit2.http.Header;
  * Created by mircea
  */
 public interface UserService {
-    @GET("/v1/me")
+    @GET("v1/me")
     Call<PublicUser> getCurrentUser(@Header(HttpHeader.AUTHORIZATION) String authorization);
 }

@@ -1,7 +1,7 @@
 package domain.test;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetNewReleasesUseCaseImpl;
+import com.mircea.sotan.domain.browse.GetNewReleasesUseCaseImpl;
 import com.mircea.sotan.model.NewReleases;
 import com.mircea.sotan.repository.apis.BrowseRestApi;
 import com.mircea.sotan.repository.networking.Listener;

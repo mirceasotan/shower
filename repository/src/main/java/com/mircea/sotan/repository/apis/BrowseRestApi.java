@@ -8,6 +8,8 @@ import com.mircea.sotan.repository.networking.Listener;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * @author mirceasotan
  */
@@ -16,6 +18,10 @@ public interface BrowseRestApi {
      * @param listener Callback used for notifying caller about request resolution
      */
     void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit);
+
+    /**
+     */
+    Observable<NewReleases> getRxNewReleasesAsync(int offset, int limit);
 
     /**
      * @param listener Callback used for notifying caller about request resolution

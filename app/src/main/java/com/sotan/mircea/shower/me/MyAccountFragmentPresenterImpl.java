@@ -1,7 +1,7 @@
 package com.sotan.mircea.shower.me;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetUserUseCase;
+import com.mircea.sotan.domain.profiles.GetUserUseCase;
 import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.sotan.mircea.shower.presenter.PresenterImpl;

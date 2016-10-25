@@ -3,7 +3,7 @@ package com.sotan.mircea.shower.albumdetail;
 import android.support.annotation.NonNull;
 
 import com.mircea.sotan.domain.DataListener;
-import com.mircea.sotan.domain.GetAlbumDetailsUseCase;
+import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.sotan.mircea.shower.presenter.PresenterImpl;

@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.newreleases;
+package com.sotan.mircea.shower.browse;
 
 import android.content.Context;
 import android.graphics.Color;

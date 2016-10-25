@@ -1,8 +1,9 @@
-package com.mircea.sotan.domain;
+package com.mircea.sotan.domain.profiles;
 
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.domain.DataListener;
+import com.mircea.sotan.domain.UseCase;
 import com.mircea.sotan.model.PublicUser;
 
 /**
