@@ -21,4 +21,5 @@ public interface AlbumsService {
     @GET("v1/albums/{id}")
     Call<FullAlbum> getAlbumDetail(@Path("id") String id,
                                    @Header(HttpHeader.AUTHORIZATION) String authorization);
+
 }

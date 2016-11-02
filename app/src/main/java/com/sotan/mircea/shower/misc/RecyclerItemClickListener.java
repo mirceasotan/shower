@@ -2,7 +2,7 @@ package com.sotan.mircea.shower.misc;
 
 import android.view.View;
 
-import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 
 /**
  * @author mirceasotan

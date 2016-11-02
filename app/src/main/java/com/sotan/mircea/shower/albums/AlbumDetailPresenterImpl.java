@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.albumdetail;
+package com.sotan.mircea.shower.albums;
 
 import android.support.annotation.NonNull;
 
@@ -7,7 +7,6 @@ import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.sotan.mircea.shower.presenter.PresenterImpl;
-import com.sotan.mircea.shower.viewModel.FullAlbumViewModel;
 
 import javax.inject.Inject;
 

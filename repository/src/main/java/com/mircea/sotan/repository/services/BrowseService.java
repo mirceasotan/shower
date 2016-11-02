@@ -23,7 +23,8 @@ public interface BrowseService {
      * @return New Releases API call
      */
     @GET("v1/browse/new-releases")
-    Call<NewReleases> getNewReleases(@Query("offset") int offset, @Query("limit") int limit,
+    Call<NewReleases> getNewReleases(@Query("offset") int offset,
+                                     @Query("limit") int limit,
                                      @Header(HttpHeader.AUTHORIZATION) String authorization);
 
 
@@ -34,7 +35,8 @@ public interface BrowseService {
      * @return New Releases Observable
      */
     @GET("v1/browse/new-releases")
-    Observable<NewReleases> getRxNewReleases(@Query("offset") int offset, @Query("limit") int limit,
+    Observable<NewReleases> getRxNewReleases(@Query("offset") int offset,
+                                             @Query("limit") int limit,
                                              @Header(HttpHeader.AUTHORIZATION) String authorization);
 
     /**

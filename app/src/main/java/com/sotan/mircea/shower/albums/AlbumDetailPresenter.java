@@ -1,4 +1,4 @@
-package com.sotan.mircea.shower.albumdetail;
+package com.sotan.mircea.shower.albums;
 
 import android.support.annotation.NonNull;
 

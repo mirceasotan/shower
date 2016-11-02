@@ -7,11 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.sotan.mircea.shower.ErrorAction;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
@@ -20,7 +21,7 @@ import com.sotan.mircea.shower.misc.ScrollEndListener;
 import com.sotan.mircea.shower.misc.VerticalSpaceItemDecoration;
 import com.sotan.mircea.shower.presenter.Presenter;
 import com.sotan.mircea.shower.view.BaseFragment;
-import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
 
 
 /**
@@ -100,7 +102,20 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
     @Override
     public void onStart() {
         super.onStart();
-        presenter.getNewReleases();
+        getNewReleases();
+    }
+
+    private void getNewReleases() {
+        presenter.getRxNewReleases().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::showNewReleases, new ErrorAction() {
+                    @Override public void onConnectionError() {
+                        Toast.makeText(getActivity(), "Connection Error", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override public void onApiError() {
+                        Toast.makeText(getActivity(), "API Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -149,7 +164,6 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
         } else {
             newReleasesAdapter.getAlbumList().addAll(simpleAlbumViewModels);
             newReleasesAdapter.notifyDataSetChanged();
-            Log.d("msg","data set");
         }
     }
 
@@ -195,6 +209,6 @@ public class NewReleasesFragment extends BaseFragment implements NewReleaseView,
 
     @Override
     public void onScrollEnded() {
-        presenter.getNewReleases();
+       getNewReleases();
     }
 }

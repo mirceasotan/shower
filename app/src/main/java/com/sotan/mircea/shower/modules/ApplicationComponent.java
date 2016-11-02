@@ -1,7 +1,7 @@
 package com.sotan.mircea.shower.modules;
 
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
+import com.sotan.mircea.shower.albums.AlbumDetailActivity;
 import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.me.MyAccountFragment;
 import com.sotan.mircea.shower.navigation.NavigationActivity;

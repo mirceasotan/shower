@@ -15,7 +15,7 @@
         android:contentDescription="@string/tile_title_textView_ct"
         tools:targetApi="lollipop" />
 
-    <TextView
+    <com.sotan.mircea.shower.widget.ThinTextView
         android:id="@+id/tile_titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

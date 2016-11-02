@@ -45,7 +45,8 @@ public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
         }, offset, limit);
     }
 
-    @Override public Observable<NewReleases> getRxNewReleases(int offset, int limit) {
+    @Override
+    public Observable<NewReleases> getRxNewReleases(int offset, int limit) {
         return browseRestApi.getRxNewReleasesAsync(offset, limit);
     }
 }

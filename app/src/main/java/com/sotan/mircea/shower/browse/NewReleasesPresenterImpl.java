@@ -8,17 +8,15 @@ import com.mircea.sotan.model.BasePaging;
 import com.mircea.sotan.model.NewReleases;
 import com.mircea.sotan.model.SimpleAlbum;
 import com.mircea.sotan.repository.networking.NetworkError;
-import com.mircea.sotan.repository.networking.RestApi;
 import com.sotan.mircea.shower.presenter.PresenterImpl;
-import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.functions.Action0;
-import rx.functions.Action1;
+import rx.Observable;
 
 /**
  * @author mirceasotan
@@ -41,10 +39,7 @@ public class NewReleasesPresenterImpl extends PresenterImpl<NewReleaseView>
             @Override
             public void onResponse(NewReleases data) {
                 if (getView() != null) {
-                    List<SimpleAlbumViewModel> simpleAlbumViewModels = new ArrayList<SimpleAlbumViewModel>();
-                    BasePaging<SimpleAlbum> simpleAlbumBasePaging = data.getSimpleAlbums();
-                    for (SimpleAlbum simpleAlbum : simpleAlbumBasePaging.getItems())
-                        simpleAlbumViewModels.add(new SimpleAlbumViewModel(simpleAlbum));
+                    List<SimpleAlbumViewModel> simpleAlbumViewModels = getSimpleAlbumViewModelsForNewReleases(data);
                     getView().showNewReleases(simpleAlbumViewModels);
                 }
 
@@ -54,29 +49,35 @@ public class NewReleasesPresenterImpl extends PresenterImpl<NewReleaseView>
             @Override
             public void onError(NetworkError error) {
                 if (getView() != null) {
-                    if (RestApi.NO_INTERNET_CONNECTION_MESSAGE.equalsIgnoreCase(error.getCodeDescription())) {
-                        getView().showNewReleasesNoConnectionError();
-                    } else {
-                        getView().showNewReleasesApiError();
-                    }
+//                    if (RestApi.NO_INTERNET_CONNECTION_MESSAGE.equalsIgnoreCase(error.getCodeDescription())) {
+//                        getView().showNewReleasesNoConnectionError();
+//                    } else {
+//                        getView().showNewReleasesApiError();
+//                    }
                 }
             }
         }, offset, limit);
     }
 
-    public void getRxReleases() {
-        newReleasesUseCase.getRxNewReleases(offset, limit).subscribe(new Action1<NewReleases>() {
-            @Override public void call(NewReleases newReleases) {
+    @NonNull
+    private List<SimpleAlbumViewModel> getSimpleAlbumViewModelsForNewReleases(@NonNull NewReleases data) {
+        List<SimpleAlbumViewModel> simpleAlbumViewModels = new ArrayList<>();
 
-            }
-        }, new Action1<Throwable>() {
-            @Override public void call(Throwable throwable) {
+        BasePaging<SimpleAlbum> simpleAlbumBasePaging = data.getSimpleAlbums();
 
-            }
-        }, new Action0() {
-            @Override public void call() {
+        List<SimpleAlbum> items = simpleAlbumBasePaging.getItems();
 
-            }
-        });
+        for (SimpleAlbum simpleAlbum : items) {
+            simpleAlbumViewModels.add(new SimpleAlbumViewModel(simpleAlbum));
+        }
+
+        return simpleAlbumViewModels;
+    }
+
+    public Observable<List<SimpleAlbumViewModel>> getRxNewReleases() {
+        offset = offset + limit;
+        return newReleasesUseCase.getRxNewReleases(offset, limit)
+                .doOnError(throwable -> offset = offset - limit)
+                .map(this::getSimpleAlbumViewModelsForNewReleases);
     }
 }

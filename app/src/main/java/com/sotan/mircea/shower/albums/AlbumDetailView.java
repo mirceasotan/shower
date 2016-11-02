@@ -1,8 +1,6 @@
-package com.sotan.mircea.shower.albumdetail;
+package com.sotan.mircea.shower.albums;
 
 import android.support.annotation.NonNull;
-
-import com.sotan.mircea.shower.viewModel.FullAlbumViewModel;
 
 /**
  * @author mirceasotan

@@ -1,10 +1,11 @@
-package com.sotan.mircea.shower.viewModel;
+package com.sotan.mircea.shower.albums;
 
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 import com.mircea.sotan.model.GsonObject;
 import com.mircea.sotan.model.SimpleAlbum;
+import com.sotan.mircea.shower.viewModel.ColorViewModel;
 
 /**
  * @author mirceasotan
@@ -12,17 +13,18 @@ import com.mircea.sotan.model.SimpleAlbum;
 
 public class SimpleAlbumViewModel extends GsonObject {
     @SerializedName("id")
-    private String id;
+    private String id = "";
     @SerializedName("name")
-    private String albumName;
+    private String name = "Unknown";
     @SerializedName("imageUrl")
     private String imageUrl;
     @SerializedName("color")
     private ColorViewModel colorViewModel;
 
+
     public SimpleAlbumViewModel(@NonNull SimpleAlbum album) {
         id = album.getId();
-        albumName = album.getName();
+        name = album.getName();
         imageUrl = album.getImages().get(0).getUrl();
     }
 
@@ -34,8 +36,8 @@ public class SimpleAlbumViewModel extends GsonObject {
         this.id = id;
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public String getName() {
+        return name;
     }
 
     public String getImageUrl() {

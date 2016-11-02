@@ -15,6 +15,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 /**
  * @author mirceasotan
@@ -38,8 +39,7 @@ public class BrowseRestApiImpl extends RestApi implements BrowseRestApi {
     @Override
     public Observable<NewReleases> getRxNewReleasesAsync(int offset, int limit) {
         Observable<NewReleases> newReleasesObservable = browseService.getRxNewReleases(offset, limit,
-                tokenStorage.getAuthToken());
-        enqueueRxAsync(newReleasesObservable);
+                tokenStorage.getAuthToken()).subscribeOn(Schedulers.newThread());
         return newReleasesObservable;
     }
 

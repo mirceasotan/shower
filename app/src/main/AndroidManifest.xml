@@ -22,7 +22,7 @@
         <activity android:name=".navigation.NavigationActivity" />
         <activity android:name="com.spotify.sdk.android.authentication.LoginActivity" />
         <activity android:name=".me.MyAccountActivity" />
-        <activity android:name=".albumdetail.AlbumDetailActivity"
+        <activity android:name=".albums.AlbumDetailActivity"
             />
     </application>
 

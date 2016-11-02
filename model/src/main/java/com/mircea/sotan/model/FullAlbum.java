@@ -2,6 +2,8 @@ package com.mircea.sotan.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,63 +12,52 @@ import java.util.Map;
  */
 public class FullAlbum extends SimpleAlbum {
     @SerializedName("copyrights")
-    private List<Copyright> copyrights;
+    private List<Copyright> copyrights = new ArrayList<>();
     @SerializedName("external_ids")
-    private Map<String, String> externalIds;
+    private Map<String, String> externalIds = new HashMap<>();
     @SerializedName("popularity")
     private int popularity;
     @SerializedName("release_date")
-    private String releaseDate;
+    private String releaseDate = "";
     @SerializedName("release_date_precision")
-    private String releaseDatePrecision;
+    private String releaseDatePrecision = "";
     @SerializedName("tracks")
-    private BasePaging<SimpleTrack> tracks;
+    private BasePaging<SimpleTrack> tracks = new BasePaging<>();
+    @SerializedName("artists")
+    private List<SimpleArtist> artists = new ArrayList<>();
+    @SerializedName("genres")
+    private List<String> genres = new ArrayList<>();
 
     public List<Copyright> getCopyrights() {
         return copyrights;
-    }
-
-    public void setCopyrights(List<Copyright> copyrights) {
-        this.copyrights = copyrights;
     }
 
     public Map<String, String> getExternalIds() {
         return externalIds;
     }
 
-    public void setExternalIds(Map<String, String> externalIds) {
-        this.externalIds = externalIds;
-    }
-
     public int getPopularity() {
         return popularity;
-    }
-
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
     }
 
     public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public String getReleaseDatePrecision() {
         return releaseDatePrecision;
-    }
-
-    public void setReleaseDatePrecision(String releaseDatePrecision) {
-        this.releaseDatePrecision = releaseDatePrecision;
     }
 
     public BasePaging<SimpleTrack> getTracks() {
         return tracks;
     }
 
-    public void setTracks(BasePaging<SimpleTrack> tracks) {
-        this.tracks = tracks;
+
+    public List<SimpleArtist> getArtists() {
+        return artists;
+    }
+
+    public List<String> getGenres() {
+        return genres;
     }
 }

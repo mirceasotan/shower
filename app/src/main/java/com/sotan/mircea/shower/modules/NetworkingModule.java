@@ -26,6 +26,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -77,6 +78,7 @@ public class NetworkingModule {
     public Retrofit provideRetrofit(@NonNull ConfigurationManager manager, @NonNull OkHttpClient client) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(manager.getValueForKey(ConfigConstants.BASE_URI))
                 .client(client)
                 .build();

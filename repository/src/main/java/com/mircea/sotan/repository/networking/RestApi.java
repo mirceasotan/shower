@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.net.HttpURLConnection;
-import java.util.HashSet;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,9 +16,7 @@ import rx.schedulers.Schedulers;
  * @author mirceasotan
  */
 public class RestApi {
-    private static final int DEFAULT_HTTP_CONNECTION_ERROR_CODE = -1;
-    public static final String NO_INTERNET_CONNECTION_MESSAGE = "No Internet Connection";
-    private final Set<Call<?>> waitingCalls = new HashSet<>();
+
     private final RequestLog requestLog;
     private final Scheduler subscribeOnScheduler = Schedulers.newThread();
     protected final TokenStorage tokenStorage;
@@ -30,8 +26,8 @@ public class RestApi {
         this.tokenStorage = tokenStorage;
     }
 
-    protected void enqueueRxAsync(@NonNull Observable observable) {
-        observable.subscribeOn(subscribeOnScheduler);
+    protected Observable configureObservableExecutionThread(@NonNull Observable observable) {
+        return observable.subscribeOn(subscribeOnScheduler);
     }
 
     /**
@@ -53,20 +49,18 @@ public class RestApi {
                 if (response != null && response.isSuccessful()) {
                     handleSuccessResponse(response, listener);
                 } else {
-                    handleErrorResponse(response, listener, null);
+                    handleErrorResponse(new NetworkError(response), listener);
                 }
             }
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                handleErrorResponse(null, listener, null);
+                handleErrorResponse(new NetworkError(t), listener);
             }
         });
     }
 
-    private <T> void handleErrorResponse(Response<T> response, @Nullable Listener<T> listener,
-                                         @Nullable Throwable t) {
-        NetworkError error = createNetworkErrorFromResponse(response, t);
+    private <T> void handleErrorResponse(@NonNull NetworkError error, @Nullable Listener<T> listener) {
         log(error.toString());
 
         if (error.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
@@ -88,28 +82,6 @@ public class RestApi {
         }
     }
 
-    /**
-     * Converts Retrofit network response into a {@link NetworkError} that can be passed and easily
-     * interpreted by the upper layers via {@link Listener}
-     *
-     * @param response Network response to be converted into a {@link NetworkError}
-     * @return a {@link NetworkError} object that contains a status code and a status message
-     */
-    @NonNull
-    private NetworkError createNetworkErrorFromResponse(@Nullable retrofit2.Response response,
-                                                        @Nullable Throwable t) {
-
-        if (response == null && t == null) {
-            return new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE,
-                    NO_INTERNET_CONNECTION_MESSAGE);
-        } else if (response == null) {
-            return new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE, t.getMessage());
-        } else if (response.raw() != null) {
-            return new NetworkError(response.raw().code(), response.raw().message());
-        } else {
-            return new NetworkError(DEFAULT_HTTP_CONNECTION_ERROR_CODE, "Unknown Status");
-        }
-    }
 
     private void handleUnauthorizedResponse() {
     }

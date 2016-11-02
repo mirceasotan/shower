@@ -18,11 +18,11 @@ import android.widget.Toast;
 
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
-import com.sotan.mircea.shower.albumdetail.AlbumDetailActivity;
+import com.sotan.mircea.shower.albums.AlbumDetailActivity;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
-import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 import com.sotan.mircea.shower.browse.NewReleasesFragment;
 import com.sotan.mircea.shower.view.BaseActivity;
 
@@ -120,7 +120,7 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
         ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,
                 new Pair<>(v.findViewById(R.id.tile_imageView), AlbumDetailActivity.VIEW_NAME_HEADER_IMAGE),
-        new Pair<>(v.findViewById(R.id.tile_titleTextView), AlbumDetailActivity.VIEW_NAME_HEADER_IMAGE2));
+                new Pair<>(v.findViewById(R.id.tile_titleTextView), AlbumDetailActivity.VIEW_NAME_HEADER_IMAGE2));
         ActivityCompat.startActivity(this, i, activityOptions.toBundle());
     }
 }

@@ -2,7 +2,6 @@ package com.sotan.mircea.shower.browse;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
 import com.sotan.mircea.shower.viewModel.ColorViewModel;
-import com.sotan.mircea.shower.viewModel.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 import com.sotan.mircea.shower.widget.GradientSquareImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -35,8 +34,6 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
     private final List<SimpleAlbumViewModel> albumList;
     @NonNull
     private final Context context;
-    @NonNull
-    private final Typeface type;
     private RecyclerItemClickListener listener;
     private Drawable placeHolderDrawable = new ColorDrawable(Color.TRANSPARENT);
 
@@ -44,7 +41,6 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
                        @Nullable RecyclerItemClickListener listener) {
         this.albumList = albumList;
         this.context = context;
-        this.type = Typeface.createFromAsset(context.getAssets(), "Roboto-MediumItalic.ttf");
         this.listener = listener;
     }
 
@@ -54,10 +50,7 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
         Log.d("msg", "on create view holder");
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.new_releases_tile_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        viewHolder.tileTitleTextView.setTypeface(type);
-        return viewHolder;
-
+        return new ViewHolder(v);
     }
 
     @Override
@@ -77,12 +70,7 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
 
         final SimpleAlbumViewModel album = albumList.get(position);
 
-        holder.parentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(album, v);
-            }
-        });
+        holder.parentView.setOnClickListener(v -> listener.onItemClick(album, v));
 
         holder.tileProgressBar.setVisibility(View.VISIBLE);
         holder.tileImageView.setImageDrawable(placeHolderDrawable);
@@ -95,14 +83,14 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
             @Override
             public void onColorsAvailable(ColorViewModel colorViewModel) {
                 album.setColorViewModel(colorViewModel);
-                holder.parentView.setBackgroundColor(colorViewModel.getMainColor());
+                holder.parentView.setBackgroundColor(colorViewModel.getBackgroundColor());
                 holder.tileTitleTextView.setTextColor(colorViewModel.getTextColor());
             }
         });
 
         Picasso.with(context).load(album.getImageUrl()).into((Target) holder.tileImageView);
 
-        holder.tileTitleTextView.setText(album.getAlbumName());
+        holder.tileTitleTextView.setText(album.getName());
     }
 
     @Override
