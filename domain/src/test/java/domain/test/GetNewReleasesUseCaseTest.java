@@ -1,10 +1,9 @@
 package domain.test;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.browse.GetNewReleasesUseCaseImpl;
 import com.mircea.sotan.model.NewReleases;
 import com.mircea.sotan.repository.apis.BrowseRestApi;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.mircea.sotan.repository.networking.ResponseContainer;
 
@@ -32,7 +31,7 @@ public class GetNewReleasesUseCaseTest {
     @Mock
     private DataListener<NewReleases> dataListenerMock;
     @Captor
-    private ArgumentCaptor<Listener<NewReleases>> argumentCaptor;
+    private ArgumentCaptor<ApiListener<NewReleases>> argumentCaptor;
     @Mock
     private NewReleases newReleases;
     @Mock

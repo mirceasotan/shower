@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.sotan.mircea.shower.R;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 import com.sotan.mircea.shower.misc.RecyclerItemClickListener;
 import com.sotan.mircea.shower.viewModel.ColorViewModel;
-import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
 import com.sotan.mircea.shower.widget.GradientSquareImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -47,7 +46,6 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view
-        Log.d("msg", "on create view holder");
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.new_releases_tile_layout, parent, false);
         return new ViewHolder(v);
@@ -58,9 +56,6 @@ class NewReleasesAdapter extends RecyclerView.Adapter<NewReleasesAdapter.ViewHol
         if (albumList == null) {
             return;
         }
-
-        Log.d("msg", "on bind" + position);
-
 
         if (holder.position == holder.getAdapterPosition()) {
             return;

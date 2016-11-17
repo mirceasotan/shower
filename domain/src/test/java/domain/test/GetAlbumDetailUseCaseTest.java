@@ -1,11 +1,10 @@
 package domain.test;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.albums.GetAlbumDetailUseCaseImpl;
 import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
 import com.mircea.sotan.repository.apis.AlbumsRestApi;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.mircea.sotan.repository.networking.ResponseContainer;
 
@@ -33,7 +32,7 @@ public class GetAlbumDetailUseCaseTest {
     @Mock
     private DataListener<FullAlbum> dataListenerMock;
     @Captor
-    private ArgumentCaptor<Listener<FullAlbum>> argumentCaptor;
+    private ArgumentCaptor<ApiListener<FullAlbum>> argumentCaptor;
     @Mock
     private FullAlbum album;
     @Mock
@@ -51,7 +50,7 @@ public class GetAlbumDetailUseCaseTest {
     public void test_getAlbumDetail_success_nullDataListener_nonNullId() {
         useCase.getAlbumDetail(id, null);
 
-        verify(albumsRestApi).getAlbumDetailsAsync(Matchers.contains(id), Matchers.<Listener<FullAlbum>>any());
+        verify(albumsRestApi).getAlbumDetailsAsync(Matchers.contains(id), Matchers.<ApiListener<FullAlbum>>any());
         verify(albumsRestApi, times(1)).getAlbumDetailsAsync(Matchers.contains(id), argumentCaptor.capture());
 
         argumentCaptor.getValue().onResponse(new ResponseContainer<>(album, 200));

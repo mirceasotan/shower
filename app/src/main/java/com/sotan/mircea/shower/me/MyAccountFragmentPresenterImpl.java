@@ -1,9 +1,9 @@
 package com.sotan.mircea.shower.me;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.profiles.GetUserUseCase;
 import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.networking.NetworkError;
+import com.mircea.sotan.repository.DataListener;
+import com.mircea.sotan.repository.Error;
 import com.sotan.mircea.shower.presenter.PresenterImpl;
 
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ public class MyAccountFragmentPresenterImpl extends PresenterImpl<MyAccountView>
             }
 
             @Override
-            public void onError(NetworkError error) {
+            public void onError(Error error) {
                 if (getView() != null) {
                     getView().showUserError();
                 }

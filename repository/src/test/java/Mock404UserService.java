@@ -1,5 +1,5 @@
 import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.networking.HttpHeader;
+import com.mircea.sotan.repository.networking.RestApi;
 import com.mircea.sotan.repository.services.UserService;
 
 import retrofit2.Call;
@@ -19,7 +19,7 @@ public class Mock404UserService implements UserService {
 
 
     @Override
-    public Call<PublicUser> getCurrentUser(@Header(HttpHeader.AUTHORIZATION) String authorization) {
+    public Call<PublicUser> getCurrentUser(@Header(RestApi.HttpHeader.AUTHORIZATION) String authorization) {
         return null;
     }
 }

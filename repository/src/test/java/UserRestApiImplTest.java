@@ -1,7 +1,7 @@
 import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.apis.UserRestApi;
 import com.mircea.sotan.repository.apis.UserRestApiImpl;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.RequestLog;
 import com.mircea.sotan.repository.networking.ResponseContainer;
 import com.mircea.sotan.repository.networking.TokenStorage;
@@ -45,7 +45,7 @@ public class UserRestApiImplTest {
     @Mock
     RequestLog log;
     @Mock
-    Listener<PublicUser> listener;
+    ApiListener<PublicUser> apiListener;
     @Mock
     TokenStorage storage;
     @Captor
@@ -70,12 +70,12 @@ public class UserRestApiImplTest {
     public void test_getCurrentUserAsyncWithSuccess_nonNullListener_onResponseCalledOnce() throws IOException {
         UserRestApi userRestApi = new UserRestApiImpl(userService, log, storage);
         when(userService.getCurrentUser(storage.getAuthToken())).thenReturn(call);
-        userRestApi.getCurrentUserAsync(listener);
+        userRestApi.getCurrentUserAsync(apiListener);
         verify(call, times(1)).enqueue(argumentCaptor.capture());
         Response<PublicUser> response = createDummyResponse();
         argumentCaptor.getValue().onResponse(this.call, response);
         ResponseContainer<PublicUser> responseContainer = new ResponseContainer<>(response.body(), 200);
-        verify(listener, times(1)).onResponse(argThat(new ArgumentMatcherImpl<>(responseContainer)));
+        verify(apiListener, times(1)).onResponse(argThat(new ArgumentMatcherImpl<>(responseContainer)));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class UserRestApiImplTest {
         Response<PublicUser> response = createDummyResponse();
         argumentCaptor.getValue().onResponse(this.call, response);
         ResponseContainer<PublicUser> responseContainer = new ResponseContainer<>(response.body(), 200);
-        verify(listener, never()).onResponse(argThat(new ArgumentMatcherImpl<>(responseContainer)));
+        verify(apiListener, never()).onResponse(argThat(new ArgumentMatcherImpl<>(responseContainer)));
     }
 
     private Response<PublicUser> createDummyResponse() throws IOException {

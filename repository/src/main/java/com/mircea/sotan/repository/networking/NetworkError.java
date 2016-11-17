@@ -7,7 +7,7 @@ import retrofit2.Response;
 /**
  *
  */
-public class NetworkError {
+public class NetworkError implements com.mircea.sotan.repository.Error {
     public static final String NO_INTERNET_CONNECTION_MESSAGE = "No Internet Connection";
     private static final int DEFAULT_HTTP_CONNECTION_ERROR_CODE = -1;
     private int httpCode;
@@ -43,5 +43,10 @@ public class NetworkError {
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public String getDescription() {
+        return toString();
     }
 }

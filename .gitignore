@@ -27,7 +27,7 @@ local.properties
 proguard/
 
 # Log Files
-*.requestLog
+*.log
 
 ### Android Patch ###
 gen-external-apklibs

@@ -2,8 +2,8 @@ package com.mircea.sotan.domain.browse;
 
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.model.NewReleases;
+import com.mircea.sotan.repository.DataListener;
 
 import rx.Observable;
 

@@ -2,10 +2,12 @@ package com.sotan.mircea.shower.modules;
 
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.albums.AlbumDetailActivity;
+import com.sotan.mircea.shower.browse.BaseNewReleasesFragment;
+import com.sotan.mircea.shower.browse.NewReleasesFragment;
 import com.sotan.mircea.shower.me.MyAccountActivity;
 import com.sotan.mircea.shower.me.MyAccountFragment;
 import com.sotan.mircea.shower.navigation.NavigationActivity;
-import com.sotan.mircea.shower.browse.NewReleasesFragment;
+import com.sotan.mircea.shower.browse.RxNewReleasesFragment;
 import com.sotan.mircea.shower.view.SplashActivity;
 
 import javax.inject.Singleton;
@@ -28,10 +30,13 @@ public interface ApplicationComponent {
 
     void inject(SplashActivity splashActivity);
 
-    void inject(NewReleasesFragment newReleasesFragment);
-
+    void inject(RxNewReleasesFragment newReleasesFragment);
 
     void inject(AlbumDetailActivity albumDetailActivity);
+
+    void inject(NewReleasesFragment newReleasesFragment);
+
+    void inject(BaseNewReleasesFragment baseNewReleasesFragment);
 
     /**
      * Created by mircea

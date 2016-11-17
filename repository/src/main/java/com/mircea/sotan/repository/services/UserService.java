@@ -1,7 +1,7 @@
 package com.mircea.sotan.repository.services;
 
 import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.networking.HttpHeader;
+import com.mircea.sotan.repository.networking.RestApi;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,5 +22,5 @@ public interface UserService {
      * user's birthdate requires the user-read-birthdate scope.
      */
     @GET("v1/me")
-    Call<PublicUser> getCurrentUser(@Header(HttpHeader.AUTHORIZATION) String authorization);
+    Call<PublicUser> getCurrentUser(@Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 }

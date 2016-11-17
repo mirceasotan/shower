@@ -43,7 +43,7 @@ import butterknife.OnClick;
 /**
  * @author mirceasotan
  */
-public class AlbumDetailActivity extends BaseActivity implements AlbumDetailView {
+public class AlbumDetailActivity extends BaseActivity implements AlbumDetailContract.AlbumDetailView {
     public static final String VIEW_NAME_HEADER_IMAGE = "detail:header:image";
     public static final String VIEW_NAME_HEADER_IMAGE2 = "detail:header:image2";
     public static final String ALBUM_KEY = "album";
@@ -69,7 +69,7 @@ public class AlbumDetailActivity extends BaseActivity implements AlbumDetailView
     @Bind(R.id.fab)
     FloatingActionButton fab;
     @Inject
-    AlbumDetailPresenter presenter;
+    AlbumDetailContract.AlbumDetailPresenter presenter;
 
     private AlbumDetailAdapter adapter;
     private SimpleAlbumViewModel simpleAlbumViewModel;

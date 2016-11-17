@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.PublicUser;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.RequestLog;
 import com.mircea.sotan.repository.networking.RestApi;
 import com.mircea.sotan.repository.networking.TokenStorage;
@@ -26,11 +26,11 @@ public class UserRestApiImpl extends RestApi implements UserRestApi {
     }
 
     /**
-     * See {@link UserRestApi#getCurrentUserAsync(Listener)}
+     * See {@link UserRestApi#getCurrentUserAsync(ApiListener)}
      */
     @Override
-    public void getCurrentUserAsync(@Nullable final Listener<PublicUser> listener) {
-        Call<PublicUser> call = userService.getCurrentUser(tokenStorage.getAuthToken());
-        enqueueAsync(call, listener);
+    public void getCurrentUserAsync(@Nullable final ApiListener<PublicUser> apiListener) {
+        Call<PublicUser> call = userService.getCurrentUser(storage.getAuthToken());
+        enqueueAsync(call, apiListener);
     }
 }

@@ -23,7 +23,8 @@ class AlbumDetailAdapter extends MapDataBinderAdapter<AlbumDetailAdapter.Types> 
         putBinder(Types.COPYRIGHT, new CopyrightBinder(copyright, textColor));
     }
 
-    @Override public Types getEnumFromPosition(int position) {
+    @Override
+    public Types getEnumFromPosition(int position) {
         if (position == getItemCount() - 1) {
             return Types.COPYRIGHT;
         } else {
@@ -31,7 +32,8 @@ class AlbumDetailAdapter extends MapDataBinderAdapter<AlbumDetailAdapter.Types> 
         }
     }
 
-    @Override public Types getEnumFromOrdinal(int ordinal) {
+    @Override
+    public Types getEnumFromOrdinal(int ordinal) {
         return Types.values()[ordinal];
     }
 

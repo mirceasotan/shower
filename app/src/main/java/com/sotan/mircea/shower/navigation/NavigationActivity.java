@@ -19,11 +19,13 @@ import android.widget.Toast;
 import com.sotan.mircea.shower.R;
 import com.sotan.mircea.shower.ShowerApp;
 import com.sotan.mircea.shower.albums.AlbumDetailActivity;
+import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
+import com.sotan.mircea.shower.browse.BaseNewReleasesFragment;
+import com.sotan.mircea.shower.browse.NewReleasesFragment;
+import com.sotan.mircea.shower.browse.RxNewReleasesFragment;
 import com.sotan.mircea.shower.logger.GAEvent;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountActivity;
-import com.sotan.mircea.shower.albums.SimpleAlbumViewModel;
-import com.sotan.mircea.shower.browse.NewReleasesFragment;
 import com.sotan.mircea.shower.view.BaseActivity;
 
 import javax.inject.Inject;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
  * Created by mircea
  */
 public class NavigationActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        NavigationActivityView, NewReleasesFragment.NewReleasesUIDelegate {
+        NavigationActivityView, BaseNewReleasesFragment.NewReleasesUIDelegate {
     @Bind(R.id.home_drawer_layout)
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
@@ -61,7 +63,7 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
         initActionBar();
 
         if (savedInstanceState == null) {
-            replaceFragment(NewReleasesFragment.newInstance(),
+            replaceFragment(RxNewReleasesFragment.newInstance(),
                     R.id.navigation_activity_fragment_container, false);
         }
     }
@@ -94,6 +96,12 @@ public class NavigationActivity extends BaseActivity implements NavigationView.O
                 break;
             case R.id.sign_out:
                 // presenter.onHandleSignInMenuItemClick();
+                break;
+            case R.id.new_releases:
+                replaceFragment(NewReleasesFragment.newInstance(), R.id.navigation_activity_fragment_container, true);
+                break;
+            case R.id.rx_new_releases:
+                replaceFragment(RxNewReleasesFragment.newInstance(), R.id.navigation_activity_fragment_container, true);
                 break;
         }
 

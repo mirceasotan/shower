@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/rx_new_releases"
+        android:title="@string/rx_new_releases"/>
+    <item
         android:id="@+id/new_releases"
-
-        android:title="@string/new_releases" />
+        android:title="@string/new_releases"/>
     <item
         android:id="@+id/playlists"
-
-        android:title="@string/playlists" />
+        android:title="@string/playlists"/>
     <item
         android:id="@+id/albums"
-        android:title="@string/albums" />
+        android:title="@string/albums"/>
     <item
         android:id="@+id/categories"
-
-        android:title="@string/categories" />
+        android:title="@string/categories"/>
     <item
         android:id="@+id/me"
-
-        android:title="@string/my_account" />
+        android:title="@string/my_account"/>
 
     <item
         android:id="@+id/sign_out"
-
-        android:title="@string/sign_out" />
+        android:title="@string/sign_out"/>
 </menu>

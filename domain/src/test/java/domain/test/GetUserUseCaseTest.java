@@ -1,10 +1,9 @@
 package domain.test;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.profiles.GetUserUseCaseImpl;
 import com.mircea.sotan.model.PublicUser;
 import com.mircea.sotan.repository.apis.UserRestApi;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.mircea.sotan.repository.networking.ResponseContainer;
 
@@ -31,7 +30,7 @@ public class GetUserUseCaseTest {
     @Mock
     private DataListener<PublicUser> dataListenerMock;
     @Captor
-    private ArgumentCaptor<Listener<PublicUser>> argumentCaptor;
+    private ArgumentCaptor<ApiListener<PublicUser>> argumentCaptor;
     @Mock
     private PublicUser user;
     @Mock

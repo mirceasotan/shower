@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.Category;
 import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.RequestLog;
 import com.mircea.sotan.repository.networking.RestApi;
 import com.mircea.sotan.repository.networking.TokenStorage;
@@ -22,30 +22,29 @@ import rx.schedulers.Schedulers;
  */
 public class BrowseRestApiImpl extends RestApi implements BrowseRestApi {
 
-    private final BrowseService browseService;
+    private final BrowseService service;
 
     public BrowseRestApiImpl(@NonNull BrowseService service, @NonNull RequestLog requestLog,
                              @NonNull TokenStorage tokenStorage) {
         super(requestLog, tokenStorage);
-        browseService = service;
+        this.service = service;
     }
 
     @Override
-    public void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit) {
-        Call<NewReleases> call = browseService.getNewReleases(offset, limit, tokenStorage.getAuthToken());
-        enqueueAsync(call, listener);
+    public void getNewReleasesAsync(@Nullable ApiListener<NewReleases> apiListener, int offset, int limit) {
+        Call<NewReleases> call = service.getNewReleases(offset, limit, storage.getAuthToken());
+        enqueueAsync(call, apiListener);
     }
 
     @Override
     public Observable<NewReleases> getRxNewReleasesAsync(int offset, int limit) {
-        Observable<NewReleases> newReleasesObservable = browseService.getRxNewReleases(offset, limit,
-                tokenStorage.getAuthToken()).subscribeOn(Schedulers.newThread());
-        return newReleasesObservable;
+        return service.getRxNewReleases(offset, limit,
+                storage.getAuthToken()).subscribeOn(Schedulers.newThread());
     }
 
     @Override
-    public void getCategoriesAsync(@Nullable Listener<List<Category>> listener) {
-        Call<List<Category>> call = browseService.getCategories();
-        enqueueAsync(call, listener);
+    public void getCategoriesAsync(@Nullable ApiListener<List<Category>> apiListener) {
+        Call<List<Category>> call = service.getCategories();
+        enqueueAsync(call, apiListener);
     }
 }

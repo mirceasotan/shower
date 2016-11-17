@@ -2,7 +2,7 @@ package com.mircea.sotan.repository.services;
 
 import com.mircea.sotan.model.Category;
 import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.repository.networking.HttpHeader;
+import com.mircea.sotan.repository.networking.RestApi;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface BrowseService {
     @GET("v1/browse/new-releases")
     Call<NewReleases> getNewReleases(@Query("offset") int offset,
                                      @Query("limit") int limit,
-                                     @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                     @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
 
     /**
@@ -37,7 +37,7 @@ public interface BrowseService {
     @GET("v1/browse/new-releases")
     Observable<NewReleases> getRxNewReleases(@Query("offset") int offset,
                                              @Query("limit") int limit,
-                                             @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                             @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get a list of categories used to tag items in Spotify (on, for example,

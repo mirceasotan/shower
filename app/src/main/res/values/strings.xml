@@ -7,6 +7,7 @@
     //Drawer menu items
     <string name="my_account">Me</string>
     <string name="sign_out">Sign Out</string>
+    <string name="rx_new_releases">Rx New Releases</string>
     <string name="new_releases">New Releases</string>
     <string name="categories">Browse Categories</string>
     <string name="playlists">PlayLists</string>

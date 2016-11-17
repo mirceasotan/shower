@@ -1,5 +1,5 @@
 import com.mircea.sotan.model.FullAlbum;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.RequestLog;
 import com.mircea.sotan.repository.services.AlbumsService;
 
@@ -25,7 +25,7 @@ public class AlbumsRestApiImplTest {
     @Mock
     String id;
     @Mock
-    Listener<FullAlbum> listener;
+    ApiListener<FullAlbum> apiListener;
     @Mock
     AlbumsService albumsService;
 
@@ -40,7 +40,7 @@ public class AlbumsRestApiImplTest {
 //
 //        AlbumsRestApiImpl api = new AlbumsRestApiImpl(retrofit, requestLog);
 //
-//        api.getAlbumDetailsAsync(id, listener);
+//        api.getAlbumDetailsAsync(id, apiListener);
 //
 //        Mockito.verify(albumsService).getAlbumDetail(Matchers.eq(id));
     }

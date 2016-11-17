@@ -5,7 +5,7 @@ import com.mircea.sotan.model.BasePaging;
 import com.mircea.sotan.model.FullArtist;
 import com.mircea.sotan.model.SimpleAlbum;
 import com.mircea.sotan.model.Tracks;
-import com.mircea.sotan.repository.networking.HttpHeader;
+import com.mircea.sotan.repository.networking.RestApi;
 
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -33,7 +33,7 @@ public interface ArtistService {
     Observable<BasePaging<SimpleAlbum>> getAlbums(@Path("id") String id,
                                                   @Query("offset") int offset,
                                                   @Query("limit") int limit,
-                                                  @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                                  @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get Spotify catalog information about an artist’s top tracks by country.
@@ -51,7 +51,7 @@ public interface ArtistService {
     @GET("v1/artists/{id}/top-tracks")
     Observable<Tracks> getTopTracks(@Path("id") String id,
                                     @Query("country") String country,
-                                    @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                    @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get Spotify catalog information about artists similar to a given artist. Similarity is based
@@ -65,7 +65,7 @@ public interface ArtistService {
      */
     @GET("v1/artists/{id}/related-artists")
     Observable<Artists> getRelatedArtists(@Path("id") String id,
-                                          @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                          @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get Spotify catalog information for a single artist identified by their unique Spotify ID.
@@ -77,7 +77,7 @@ public interface ArtistService {
      */
     @GET("v1/artists/{id}")
     Observable<FullArtist> getArtist(@Path("id") String id,
-                                     @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                     @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
     /**
      * Get Spotify catalog information for several artists based on their Spotify IDs.
@@ -92,7 +92,7 @@ public interface ArtistService {
      */
     @GET("v1/artists")
     Observable<Artists> getSeveralArtists(@Query("ids") String ids,
-                                          @Header(HttpHeader.AUTHORIZATION) String authorization);
+                                          @Header(RestApi.HttpHeader.AUTHORIZATION) String authorization);
 
 
 }

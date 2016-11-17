@@ -6,15 +6,15 @@ import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.domain.browse.GetNewReleasesUseCase;
 import com.mircea.sotan.domain.profiles.GetUserUseCase;
 import com.sotan.mircea.shower.ConfigurationManager;
-import com.sotan.mircea.shower.albums.AlbumDetailPresenter;
+import com.sotan.mircea.shower.albums.AlbumDetailContract;
 import com.sotan.mircea.shower.albums.AlbumDetailPresenterImpl;
+import com.sotan.mircea.shower.browse.NewReleasesContract;
 import com.sotan.mircea.shower.logger.GTMLogger;
 import com.sotan.mircea.shower.logger.Logger;
 import com.sotan.mircea.shower.me.MyAccountFragmentPresenter;
 import com.sotan.mircea.shower.me.MyAccountFragmentPresenterImpl;
 import com.sotan.mircea.shower.navigation.NavigationActivityPresenter;
 import com.sotan.mircea.shower.navigation.NavigationActivityPresenterImpl;
-import com.sotan.mircea.shower.browse.NewReleasesPresenter;
 import com.sotan.mircea.shower.browse.NewReleasesPresenterImpl;
 
 import javax.inject.Named;
@@ -46,12 +46,12 @@ public class ApplicationModule {
     }
 
     @Provides
-    public NewReleasesPresenter provideNewReleasePresenter(GetNewReleasesUseCase useCase) {
+    public NewReleasesContract.NewReleasesPresenter provideNewReleasePresenter(GetNewReleasesUseCase useCase) {
         return new NewReleasesPresenterImpl(useCase);
     }
 
     @Provides
-    public AlbumDetailPresenter provideAlbumDetailsPresenter(GetAlbumDetailsUseCase useCase) {
+    public AlbumDetailContract.AlbumDetailPresenter provideAlbumDetailsPresenter(GetAlbumDetailsUseCase useCase) {
         return new AlbumDetailPresenterImpl(useCase);
     }
 

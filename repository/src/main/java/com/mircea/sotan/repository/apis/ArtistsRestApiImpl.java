@@ -31,31 +31,31 @@ public class ArtistsRestApiImpl extends RestApi implements ArtistRestApi {
 
     @Override
     public Observable<BasePaging<SimpleAlbum>> getAlbums(String id, int offset, int limit) {
-        return artistService.getAlbums(id, offset, limit, tokenStorage.getAuthToken())
+        return artistService.getAlbums(id, offset, limit, storage.getAuthToken())
                 .subscribeOn(Schedulers.newThread());
     }
 
     @Override
     public Observable<Tracks> getTopTracks(String id, String country) {
-        return artistService.getTopTracks(id, country, tokenStorage.getAuthToken())
+        return artistService.getTopTracks(id, country, storage.getAuthToken())
                 .subscribeOn(Schedulers.newThread());
     }
 
     @Override
     public Observable<Artists> getRelatedArtists(String id) {
-        return artistService.getRelatedArtists(id, tokenStorage.getAuthToken())
+        return artistService.getRelatedArtists(id, storage.getAuthToken())
                 .subscribeOn(Schedulers.newThread());
     }
 
     @Override
     public Observable<FullArtist> getArtist(String id) {
-        return artistService.getArtist(id, tokenStorage.getAuthToken())
+        return artistService.getArtist(id, storage.getAuthToken())
                 .subscribeOn(Schedulers.newThread());
     }
 
     @Override
     public Observable<Artists> getSeveralArtists(String ids) {
-        return artistService.getSeveralArtists(ids, tokenStorage.getAuthToken())
+        return artistService.getSeveralArtists(ids, storage.getAuthToken())
                 .subscribeOn(Schedulers.newThread());
     }
 }

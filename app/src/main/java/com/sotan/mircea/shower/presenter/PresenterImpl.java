@@ -13,7 +13,6 @@ public class PresenterImpl<V> implements Presenter<V> {
 
     /**
      * {@link Presenter#bind(Object)} )}
-     *
      */
     @Override
     public void bind(V view) {

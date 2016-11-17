@@ -13,7 +13,7 @@ import com.sotan.mircea.shower.view.DataBinder;
  * @author mirceasotan
  */
 
-public class CopyrightBinder extends DataBinder<CopyrightBinder.CopyRightViewHolder> {
+public class CopyrightBinder implements DataBinder<CopyrightBinder.CopyRightViewHolder> {
 
     private String copyright;
     private int textColor;

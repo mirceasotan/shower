@@ -2,10 +2,10 @@ package com.sotan.mircea.shower.albums;
 
 import android.support.annotation.NonNull;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.domain.albums.GetAlbumDetailsUseCase;
 import com.mircea.sotan.model.FullAlbum;
-import com.mircea.sotan.repository.networking.NetworkError;
+import com.mircea.sotan.repository.DataListener;
+import com.mircea.sotan.repository.Error;
 import com.sotan.mircea.shower.presenter.PresenterImpl;
 
 import javax.inject.Inject;
@@ -13,7 +13,8 @@ import javax.inject.Inject;
 /**
  * @author mirceasotan
  */
-public class AlbumDetailPresenterImpl extends PresenterImpl<AlbumDetailView> implements AlbumDetailPresenter {
+public class AlbumDetailPresenterImpl extends PresenterImpl<AlbumDetailContract.AlbumDetailView>
+        implements AlbumDetailContract.AlbumDetailPresenter {
 
     private final GetAlbumDetailsUseCase albumDetailsUseCase;
 
@@ -33,7 +34,7 @@ public class AlbumDetailPresenterImpl extends PresenterImpl<AlbumDetailView> imp
             }
 
             @Override
-            public void onError(NetworkError error) {
+            public void onError(Error error) {
 
             }
         });

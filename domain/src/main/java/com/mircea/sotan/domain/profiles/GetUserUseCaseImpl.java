@@ -3,10 +3,10 @@ package com.mircea.sotan.domain.profiles;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.model.PublicUser;
+import com.mircea.sotan.repository.DataListener;
 import com.mircea.sotan.repository.apis.UserRestApi;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 import com.mircea.sotan.repository.networking.NetworkError;
 import com.mircea.sotan.repository.networking.ResponseContainer;
 
@@ -26,7 +26,7 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
 
     @Override
     public void getUser(@Nullable final DataListener<PublicUser> dataListener) {
-        userRestApi.getCurrentUserAsync(new Listener<PublicUser>() {
+        userRestApi.getCurrentUserAsync(new ApiListener<PublicUser>() {
             @Override
             public void onResponse(ResponseContainer<PublicUser> apiResponse) {
                 if (dataListener == null) {
@@ -37,12 +37,12 @@ public class GetUserUseCaseImpl implements GetUserUseCase {
             }
 
             @Override
-            public void onError(NetworkError error) {
+            public void onError(NetworkError networkError) {
                 if (dataListener == null) {
                     return;
                 }
 
-                dataListener.onError(error);
+                dataListener.onError(networkError);
             }
         });
     }

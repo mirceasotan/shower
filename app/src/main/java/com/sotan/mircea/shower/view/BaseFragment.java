@@ -7,11 +7,11 @@ import com.sotan.mircea.shower.presenter.Presenter;
 /**
  * @author mirceasotan
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends Presenter<K>, K> extends Fragment {
 
-    public abstract  Presenter getPresenter();
+    public abstract T getPresenter();
 
-    public abstract Object getMvpView();
+    public abstract K getMvpView();
 
     @Override
     public void onResume() {
@@ -23,8 +23,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
 
         if (getPresenter() != null && getPresenter().isBound()) {
             getPresenter().unbind();

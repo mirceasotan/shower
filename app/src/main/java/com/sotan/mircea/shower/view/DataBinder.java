@@ -7,11 +7,11 @@ import android.view.ViewGroup;
  * @author mirceasotan
  */
 
-public abstract class DataBinder<T extends RecyclerView.ViewHolder> {
+public interface DataBinder<T extends RecyclerView.ViewHolder> {
 
-    public abstract T onCreateNewViewHolder(ViewGroup parent);
+    T onCreateNewViewHolder(ViewGroup parent);
 
-    public abstract void onBindViewHolder(T holder, int position);
+    void onBindViewHolder(T holder, int position);
 
-    public abstract int getItemCount();
+    int getItemCount();
 }

@@ -2,12 +2,10 @@ package com.mircea.sotan.domain.browse;
 
 import android.support.annotation.Nullable;
 
-import com.mircea.sotan.domain.DataListener;
 import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.repository.apis.BrowseRestApi;
-import com.mircea.sotan.repository.networking.Listener;
-import com.mircea.sotan.repository.networking.NetworkError;
-import com.mircea.sotan.repository.networking.ResponseContainer;
+import com.mircea.sotan.repository.BrowseDataSource;
+import com.mircea.sotan.repository.DataListener;
+import com.mircea.sotan.repository.Error;
 
 import javax.inject.Inject;
 
@@ -18,35 +16,39 @@ import rx.Observable;
  */
 public class GetNewReleasesUseCaseImpl implements GetNewReleasesUseCase {
 
-    private final BrowseRestApi browseRestApi;
+    private final BrowseDataSource repository;
 
     @Inject
-    public GetNewReleasesUseCaseImpl(BrowseRestApi browseRestApi) {
-        this.browseRestApi = browseRestApi;
+    public GetNewReleasesUseCaseImpl(BrowseDataSource repository) {
+        this.repository = repository;
     }
 
     @Override
     public void getNewReleases(@Nullable final DataListener<NewReleases> dataListener, int offset,
                                int limit) {
-        browseRestApi.getNewReleasesAsync(new Listener<NewReleases>() {
+
+        repository.getNewReleases(new com.mircea.sotan.repository.DataListener<NewReleases>() {
             @Override
-            public void onResponse(ResponseContainer<NewReleases> apiResponse) {
+            public void onResponse(NewReleases data) {
                 if (dataListener != null) {
-                    dataListener.onResponse(apiResponse.getData());
+                    dataListener.onResponse(data);
                 }
             }
 
             @Override
-            public void onError(NetworkError error) {
+            public void onError(Error error) {
                 if (dataListener != null) {
                     dataListener.onError(error);
                 }
             }
+
+
         }, offset, limit);
+
     }
 
     @Override
     public Observable<NewReleases> getRxNewReleases(int offset, int limit) {
-        return browseRestApi.getRxNewReleasesAsync(offset, limit);
+        return repository.getRxNewReleases(offset, limit);
     }
 }

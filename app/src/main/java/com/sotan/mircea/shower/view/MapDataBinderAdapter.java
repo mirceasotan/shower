@@ -1,7 +1,5 @@
 package com.sotan.mircea.shower.view;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,28 +14,29 @@ public abstract class MapDataBinderAdapter<E extends Enum> extends DataBindAdapt
 
     public abstract E getEnumFromOrdinal(int ordinal);
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         int itemCount = 0;
 
         for (DataBinder binder : binderMap.values()) {
             itemCount += binder.getItemCount();
         }
 
-        Log.d("msg", "item count " + itemCount);
-
         return itemCount;
     }
 
-    @Override public int getItemViewType(int position) {
+    @Override
+    public int getItemViewType(int position) {
         return getEnumFromPosition(position).ordinal();
     }
 
     @Override
-    public <T extends DataBinder> T getDataBinder(int viewType) {
+    public DataBinder getDataBinder(int viewType) {
         return getDataBinder(getEnumFromOrdinal(viewType));
     }
 
-    @Override public int getBinderPosition(int position) {
+    @Override
+    public int getBinderPosition(int position) {
         E targetViewType = getEnumFromPosition(position);
 
         int binderPosition = -1;
@@ -55,12 +54,11 @@ public abstract class MapDataBinderAdapter<E extends Enum> extends DataBindAdapt
         return binderPosition;
     }
 
-    public void putBinder(E e, DataBinder binder) {
+    protected void putBinder(E e, DataBinder binder) {
         binderMap.put(e, binder);
     }
 
-    public <T extends DataBinder> T getDataBinder(E e) {
-        return (T) binderMap.get(e);
+    private DataBinder getDataBinder(E e) {
+        return binderMap.get(e);
     }
-
 }

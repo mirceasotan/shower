@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.mircea.sotan.model.Category;
 import com.mircea.sotan.model.NewReleases;
-import com.mircea.sotan.repository.networking.Listener;
+import com.mircea.sotan.repository.networking.ApiListener;
 
 import java.util.List;
 
@@ -15,16 +15,16 @@ import rx.Observable;
  */
 public interface BrowseRestApi {
     /**
-     * @param listener Callback used for notifying caller about request resolution
+     * @param apiListener Callback used for notifying caller about request resolution
      */
-    void getNewReleasesAsync(@Nullable Listener<NewReleases> listener, int offset, int limit);
+    void getNewReleasesAsync(@Nullable ApiListener<NewReleases> apiListener, int offset, int limit);
 
     /**
      */
     Observable<NewReleases> getRxNewReleasesAsync(int offset, int limit);
 
     /**
-     * @param listener Callback used for notifying caller about request resolution
+     * @param apiListener Callback used for notifying caller about request resolution
      */
-    void getCategoriesAsync(@Nullable Listener<List<Category>> listener);
+    void getCategoriesAsync(@Nullable ApiListener<List<Category>> apiListener);
 }

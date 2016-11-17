@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * @author mirceasotan
  */
 
-public class SimpleTrackBinder extends DataBinder<SimpleTrackBinder.TrackViewHolder> {
+public class SimpleTrackBinder implements DataBinder<SimpleTrackBinder.TrackViewHolder> {
 
     private final List<TrackViewModel> data = new ArrayList<>();
     private int textColor;

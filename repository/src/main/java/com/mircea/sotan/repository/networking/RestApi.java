@@ -17,24 +17,28 @@ import rx.schedulers.Schedulers;
  */
 public class RestApi {
 
-    private final RequestLog requestLog;
-    private final Scheduler subscribeOnScheduler = Schedulers.newThread();
-    protected final TokenStorage tokenStorage;
+    private final RequestLog log;
+    private final Scheduler scheduler = Schedulers.newThread();
+    protected final TokenStorage storage;
 
-    public RestApi(@NonNull RequestLog requestLog, @NonNull TokenStorage tokenStorage) {
-        this.requestLog = requestLog;
-        this.tokenStorage = tokenStorage;
+    public interface HttpHeader {
+        String AUTHORIZATION = "Authorization";
+    }
+
+    public RestApi(@NonNull RequestLog log, @NonNull TokenStorage storage) {
+        this.log = log;
+        this.storage = storage;
     }
 
     protected Observable configureObservableExecutionThread(@NonNull Observable observable) {
-        return observable.subscribeOn(subscribeOnScheduler);
+        return observable.subscribeOn(scheduler);
     }
 
     /**
-     * @param call     Retrofit Http call to be performed
-     * @param listener callback for notifying observers that call finished with a resolution
+     * @param call        Retrofit Http call to be performed
+     * @param apiListener callback for notifying observers that call finished with a resolution
      */
-    protected <T> void enqueueAsync(@NonNull Call<T> call, @Nullable final Listener<T> listener) {
+    protected <T> void enqueueAsync(@NonNull Call<T> call, @Nullable final ApiListener<T> apiListener) {
         StringBuilder builder = new StringBuilder("Request URL:")
                 .append(" ")
                 .append(call.request().method())
@@ -47,38 +51,38 @@ public class RestApi {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
                 if (response != null && response.isSuccessful()) {
-                    handleSuccessResponse(response, listener);
+                    handleSuccessResponse(response, apiListener);
                 } else {
-                    handleErrorResponse(new NetworkError(response), listener);
+                    handleErrorResponse(new NetworkError(response), apiListener);
                 }
             }
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                handleErrorResponse(new NetworkError(t), listener);
+                handleErrorResponse(new NetworkError(t), apiListener);
             }
         });
     }
 
-    private <T> void handleErrorResponse(@NonNull NetworkError error, @Nullable Listener<T> listener) {
-        log(error.toString());
+    private <T> void handleErrorResponse(@NonNull NetworkError networkError, @Nullable ApiListener<T> apiListener) {
+        log(networkError.toString());
 
-        if (error.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+        if (networkError.getHttpCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
             //TODO add 401 handling
             handleUnauthorizedResponse();
-        } else if (listener != null) {
-            listener.onError(error);
+        } else if (apiListener != null) {
+            apiListener.onError(networkError);
         }
     }
 
-    private <T> void handleSuccessResponse(Response<T> response, @Nullable Listener<T> listener) {
+    private <T> void handleSuccessResponse(Response<T> response, @Nullable ApiListener<T> apiListener) {
         ResponseContainer<T> responseContainer = new ResponseContainer<>(response.body(),
                 response.code());
 
         log("Response : " + response.code());
 
-        if (listener != null) {
-            listener.onResponse(responseContainer);
+        if (apiListener != null) {
+            apiListener.onResponse(responseContainer);
         }
     }
 
@@ -87,8 +91,8 @@ public class RestApi {
     }
 
     private void log(String message) {
-        if (requestLog.isLoggingEnabled()) {
-            requestLog.log(message);
+        if (log.isLoggingEnabled()) {
+            log.log(message);
         }
     }
 }
