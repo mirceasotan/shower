@@ -26,7 +26,8 @@ allprojects {
                 localProperties.withInputStream { instr -> properties.load(instr) }
                 sdkDir = properties.getProperty('sdk.dir')
             }
-            url sdkDir + '/extras/android/m2repository'
+            
+            url System.getenv('ANDROID_HOME') + '/extras/android/m2repository'
         }
 
     }
